@@ -20,4 +20,10 @@ public class Peashooter {
 	public Peashooter(){
 		
 	}
+	
+	public static String getDescription() {
+		String res = "";
+		
+		return res;
+	}
 }

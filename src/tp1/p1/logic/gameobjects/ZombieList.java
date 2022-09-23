@@ -4,7 +4,7 @@ public class ZombieList {
 
 	
 	
-	public ZombieList(){
+	public ZombieList(int remainingZombies){
 		
 	}
 }

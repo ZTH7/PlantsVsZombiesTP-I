@@ -7,6 +7,7 @@ package tp1.p1.control;
 public enum Level {
 
 	// TODO fill your code
+	EASY(3, 0.1),HARD(5, 0.2),INSANE(10, 0.3);
 
 	private int numberOfZombies;
 	
@@ -18,7 +19,15 @@ public enum Level {
 	}
 
 	// TODO fill your code
-
+	
+	public int getNumberOfZombies() {
+		return numberOfZombies;
+	}
+	
+	public double getZombieFrequency() {
+		return zombieFrequency;
+	}
+	
 	/**
 	 * Parse an string and return any matching level
 	 * 

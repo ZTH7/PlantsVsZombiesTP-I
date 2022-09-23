@@ -57,9 +57,15 @@ public class Controller {
 	 * Runs the game logic.
 	 */
 	
-	
+	String debug(String line) {
+		return Messages.debug(line);
+	}
 	
 	public void run() {
 		// TODO fill your code
+		
+		
+		
+		gamePrinter.endMessage();
 	}
 }

@@ -25,4 +25,10 @@ public class Sunflower {
 		
 		return true;
 	}
+	
+	public static String getDescription() {
+		String res = "";
+		
+		return res;
+	}
 }

@@ -64,4 +64,14 @@ public class ZombiesManager {
 	}
 
 	// TODO fill your code
+	private int getRemainingZombies() {
+		return remainingZombies;
+	}
+	
+	private boolean isPositionEmpty(int col, int row) {
+		// TODO fill your cod
+		
+		
+		return true;// TODO
+	}
 }
