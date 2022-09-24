@@ -59,6 +59,8 @@ public class ZombiesManager {
 
 		if(canAdd) {
 			// TODO fill your code
+			zombies.zombies[zombies.zombies.length - getRemainingZombies()] = new Zombie(Game.NUM_COLS, row);
+			this.remainingZombies--;
 		}
 		return canAdd;
 	}
@@ -71,7 +73,12 @@ public class ZombiesManager {
 	private boolean isPositionEmpty(int col, int row) {
 		// TODO fill your cod
 		
+		boolean res = true;
 		
-		return true;// TODO
+		for(Zombie zomb : zombies.zombies) {
+			if(zomb.getCol() == col && zomb.getRow() == row) res = false;
+		}
+		
+		return res;// TODO
 	}
 }

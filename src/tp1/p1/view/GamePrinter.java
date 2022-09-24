@@ -44,6 +44,11 @@ public class GamePrinter {
 		StringBuilder buffer = new StringBuilder();
 
 		// TODO fill your code
+		buffer.append("Number of cycles: " + game.CicloContador + "\n");
+		buffer.append("Sun coins: " + game.soles + "\n");
+		buffer.append("Remaining zombies: " + "\n");
+		
+		
 
 		return buffer.toString();
 	}

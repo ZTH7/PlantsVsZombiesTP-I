@@ -3,10 +3,16 @@ package tp1.p1.logic.gameobjects;
 
 
 public class Sunflower {
+	String name = "S";
 	int coste = 20;
 	int resistencia = 1;
 	int damage = 0;
-	boolean ciclo = false;
+	public int frecuencia = 1;
+	public int ciclo = 0;
+	
+	private int vida;
+	private int col;
+	private int row;
 	
 	public Sunflower(){
 		
@@ -18,10 +24,10 @@ public class Sunflower {
 	}
 	
 	public boolean ciclo() {
-		if(ciclo) {
+		if(ciclo >= frecuencia) {
 			GeneraSol();
-			ciclo = false;
-		} else ciclo = true;
+			ciclo = 0;
+		} else ciclo++;
 		
 		return true;
 	}
@@ -30,5 +36,15 @@ public class Sunflower {
 		String res = "";
 		
 		return res;
+	}
+	
+	public int getCol() {
+		return col;
+	}
+	public int getRow() {
+		return row;
+	}
+	public int getVida() {
+		return vida;
 	}
 }

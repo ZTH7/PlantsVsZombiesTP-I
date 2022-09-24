@@ -12,8 +12,10 @@ public class Game {
 	public long seed;
 	public Level level;
 	
+	public ZombiesManager zombieMan;
 	
-	
+	public SunflowerList Slist;
+	public PeashooterList Plist;
 	
 	
 	public Game(long seed, Level level){

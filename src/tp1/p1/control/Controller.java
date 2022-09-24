@@ -66,6 +66,10 @@ public class Controller {
 		
 		
 		
-		gamePrinter.endMessage();
+		printGame();
+		
+		
+		
+		printEndMessage();
 	}
 }
