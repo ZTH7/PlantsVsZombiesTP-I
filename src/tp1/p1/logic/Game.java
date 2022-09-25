@@ -14,6 +14,10 @@ public class Game {
 	
 	public boolean update = false;
 	
+	public ZombiesManager zombieMan;
+	
+	public SunflowerList Slist;
+	public PeashooterList Plist;
 	
 	
 	public Game(long seed, Level level){
