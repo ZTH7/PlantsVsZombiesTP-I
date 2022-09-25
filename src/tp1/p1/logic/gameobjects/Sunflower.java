@@ -3,9 +3,9 @@ package tp1.p1.logic.gameobjects;
 
 
 public class Sunflower {
-	int coste = 20;
-	int resistencia = 1;
-	int damage = 0;
+	static int coste = 20;
+	static int resistencia = 1;
+	static int damage = 0;
 	boolean ciclo = false;
 	
 	public Sunflower(){
@@ -27,8 +27,7 @@ public class Sunflower {
 	}
 	
 	public static String getDescription() {
-		String res = "";
+		return String.format("[S]unflower: cost='%s' suncoins, damage='%s', endurance='%s'", coste, damage, resistencia);
 		
-		return res;
 	}
 }

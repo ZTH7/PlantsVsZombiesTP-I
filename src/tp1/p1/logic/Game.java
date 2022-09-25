@@ -12,7 +12,7 @@ public class Game {
 	public long seed;
 	public Level level;
 	
-	
+	public boolean update = false;
 	
 	
 	
@@ -23,8 +23,11 @@ public class Game {
 	
 	public boolean update() {
 		
+		update = true;
 		
-		
+		System.out.println("Number of cycles: " + CicloContador);
+		System.out.println("Sun coins: " + soles);
+		//System.out.println("Remaining zombies: " + );
 		
 		return true;
 	}

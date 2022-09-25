@@ -1,9 +1,9 @@
 package tp1.p1.logic.gameobjects;
 
 public class Peashooter {
-	int coste = 50;
-	int resistencia = 3;
-	int damage = 1;
+	static int coste = 50;
+	static int resistencia = 3;
+	static int damage = 1;
 	boolean ciclo = false;
 	
 	public boolean dispara() {
@@ -22,8 +22,7 @@ public class Peashooter {
 	}
 	
 	public static String getDescription() {
-		String res = "";
+		return String.format("[P]eashooter: cost='%s' suncoins, damage='%s', endurance='%s'", coste, damage, resistencia);
 		
-		return res;
 	}
 }

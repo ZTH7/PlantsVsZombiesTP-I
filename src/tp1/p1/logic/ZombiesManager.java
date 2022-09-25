@@ -64,7 +64,7 @@ public class ZombiesManager {
 	}
 
 	// TODO fill your code
-	private int getRemainingZombies() {
+	public int getRemainingZombies() {
 		return remainingZombies;
 	}
 	

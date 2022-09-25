@@ -1,10 +1,12 @@
 package tp1.p1.control;
 
+import java.util.Random;
 import java.util.Scanner;
 
 import tp1.p1.logic.Game;
 import tp1.p1.view.GamePrinter;
 import tp1.p1.view.Messages;
+import tp1.p1.logic.*;
 
 /**
  * Accepts user input and coordinates the game execution logic.
@@ -63,6 +65,31 @@ public class Controller {
 	
 	public void run() {
 		// TODO fill your code
+		Random rand = new Random(game.seed);
+		Command command = new Command(game);
+		boolean GameOver = false;
+		ZombiesManager zombManag = new ZombiesManager(game, game.level, rand);
+		String[] input;
+		
+		while(!GameOver) {
+			
+			input = prompt();
+			
+			command.Input(input);
+			
+			if(game.update) {
+				
+				System.out.println("Remaining zombies: " + zombManag.getRemainingZombies());
+				
+				printGame();
+				game.update = false;
+
+				game.CicloContador++;
+			}
+			
+		}
+		
+		
 		
 		
 		
