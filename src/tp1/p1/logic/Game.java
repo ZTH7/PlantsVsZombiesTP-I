@@ -12,8 +12,7 @@ public class Game {
 	public long seed;
 	public Level level;
 	
-	
-	
+	public boolean update = false;
 	
 	
 	public Game(long seed, Level level){
@@ -23,7 +22,7 @@ public class Game {
 	
 	public boolean update() {
 		
-		
+		update = true;
 		
 		
 		return true;

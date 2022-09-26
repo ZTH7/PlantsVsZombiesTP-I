@@ -27,8 +27,6 @@ public class Sunflower {
 	}
 	
 	public static String getDescription() {
-		String res = "";
-		
-		return res;
+		return String.format("[S]unflower: cost='&s' suncoins, damage='&s', endurance='&s', coste = '&s',resistencia = '&s',damage = '&s'");
 	}
 }

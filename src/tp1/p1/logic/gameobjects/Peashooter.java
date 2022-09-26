@@ -22,8 +22,6 @@ public class Peashooter {
 	}
 	
 	public static String getDescription() {
-		String res = "";
-		
-		return res;
+		return String.format("[P]eashooter: cost='&s' suncoins, damage='&s', endurance='&s', coste ='&s', resistencia = '&s',damage = '&s'");
 	}
 }

@@ -5,6 +5,7 @@ import java.util.Scanner;
 import tp1.p1.logic.Game;
 import tp1.p1.view.GamePrinter;
 import tp1.p1.view.Messages;
+import tp1.p1.logic.*;
 
 /**
  * Accepts user input and coordinates the game execution logic.
@@ -63,8 +64,25 @@ public class Controller {
 	
 	public void run() {
 		// TODO fill your code
+		Command command = new Command(game);
 		
+		boolean GameOver = false;
+		String[] str;
 		
+		while(!GameOver)
+		{
+			str = prompt();
+			command.input(str);
+			game.update();
+			if(game.update)
+			{
+				printGame();
+				game.update = false;
+			}
+			game.CicloContador++;
+		}
+		
+		printGame();
 		
 		gamePrinter.endMessage();
 	}
