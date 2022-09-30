@@ -32,22 +32,22 @@ public class ZombiesManager {
 
 	/**
 	 * Checks if the game should add (if possible) a zombie to the game.
-	 * 
+	 *
 	 * @return <code>true</code> if a zombie should be added to the game.
 	 */
 	private boolean shouldAddZombie() {
 		return rand.nextDouble() < level.getZombieFrequency();
 	}
-	
+
 	/**
 	 * Return a random row within the board limits.
-	 * 
+	 *
 	 * @return a random row.
 	 */
 	private int randomZombieRow() {
 		return rand.nextInt(Game.NUM_ROWS);
 	}
-	
+
 	public boolean addZombie() {
 		int row = randomZombieRow();
 		return addZombie(row);
@@ -59,8 +59,8 @@ public class ZombiesManager {
 
 		if(canAdd) {
 			// TODO fill your code
-			zombies.zombies[zombies.zombies.length - getRemainingZombies()] = new Zombie(Game.NUM_COLS, row);
-			this.remainingZombies--;
+
+			//End
 		}
 		return canAdd;
 	}
@@ -69,16 +69,10 @@ public class ZombiesManager {
 	public int getRemainingZombies() {
 		return remainingZombies;
 	}
-	
-	private boolean isPositionEmpty(int col, int row) {
-		// TODO fill your cod
-		
-		boolean res = true;
-		
-		for(Zombie zomb : zombies.zombies) {
-			if(zomb.getCol() == col && zomb.getRow() == row) res = false;
-		}
-		
-		return res;// TODO
+
+	public boolean isPositionEmpty(int col, int row){
+
+		return false;
 	}
+	//End
 }

@@ -8,7 +8,7 @@ public enum Level {
 
 	// TODO fill your code
 	EASY(3, 0.1),HARD(5, 0.2),INSANE(10, 0.3);
-
+	//End
 	private int numberOfZombies;
 	
 	private double zombieFrequency;
@@ -19,15 +19,16 @@ public enum Level {
 	}
 
 	// TODO fill your code
-	
 	public int getNumberOfZombies() {
 		return numberOfZombies;
 	}
-	
+
 	public double getZombieFrequency() {
 		return zombieFrequency;
 	}
-	
+
+	//End
+
 	/**
 	 * Parse an string and return any matching level
 	 * 
