@@ -9,9 +9,9 @@ public abstract class Plants {
 
     //Atributo cambiable
     public int ciclo;
-    private int vida;
-    private int col;
-    private int row;
+    protected int vida;
+    protected int col;
+    protected int row;
 
 
     public int getCol() {
@@ -25,7 +25,6 @@ public abstract class Plants {
     public int getVida() {
         return vida;
     }
-
 
     public abstract boolean execute();
 }

@@ -3,6 +3,7 @@ package tp1.p1.logic;
 import java.util.Random;
 import tp1.p1.control.Level;
 import tp1.p1.logic.gameobjects.*;
+import tp1.p1.view.Messages;
 
 public class Game {
 
@@ -14,6 +15,9 @@ public class Game {
     public ZombiesManager zombiesManager;
     private Random rand;
 
+    public SunflowerList SList = new SunflowerList(NUM_COLS, NUM_ROWS);
+    public PeashooterList PList = new PeashooterList(NUM_COLS, NUM_ROWS);
+    
     public Game(long seed, Level level){
         rand = new Random(seed);
         zombiesManager = new ZombiesManager(this, level, rand);
@@ -21,6 +25,10 @@ public class Game {
 
     public boolean update() {
 
+    	SList.run();
+    	PList.run();
+    	
+    	
 
         CicloContador++;
 
@@ -28,11 +36,20 @@ public class Game {
     }
 
     public String positionToString(int col, int row) {
-        String res = "";
 
+        Zombie zomb = zombiesManager.get(col, row);
+        if (zomb != null) {
+        	return String.format(Messages.ZOMBIE_ICON, zomb.getVida());
+        }
+        Plants sunf = SList.get(col, row);
+        if (sunf != null) {
+        	return String.format(Messages.SUNFLOWER_ICON, sunf.getVida());
+        }
+        Plants peas = PList.get(col, row);
+        if (peas != null) {
+        	return String.format(Messages.PEASHOOTER_ICON, peas.getVida());
+        }
 
-
-
-        return res;
+        return "";
     }
 }

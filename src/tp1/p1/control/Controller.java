@@ -72,7 +72,10 @@ public class Controller {
 			Command cmd = Command.matchCmd(input, game);
 
 			if(cmd != null) {
-				if(cmd.execute()) printGame();
+				if(cmd.execute()) {
+					game.update();
+					printGame();
+				}
 			}
 
 

@@ -15,7 +15,7 @@ public abstract class Command {
                 System.out.printf(Messages.ERROR, Messages.COMMAND_PARAMETERS_MISSING);
                 return null;
             }
-
+            return new AddCmd(input, game);
         }
         else if(input[0].equalsIgnoreCase("l") || input[0].equalsIgnoreCase("list")) {
             return new ListCmd(input, game);

@@ -1,10 +1,12 @@
 package tp1.p1.logic.gameobjects;
 
+import tp1.p1.logic.*;
+
 public abstract class PlantsList {
 	public Plants[] list;
 	public int size = 0;
 
-    public abstract boolean add(int col, int row);
+    public abstract boolean add(int col, int row, Game game);
     
     public boolean remove(int col, int row) {
     	for(int i = 0; i < this.size; i++) {
@@ -26,5 +28,12 @@ public abstract class PlantsList {
     		}
     	}
     	return null;
+    }
+    
+    public boolean run() {
+    	for(int i = 0; i < this.size; i++) {
+    		this.list[i].execute();
+    	}
+    	return true;
     }
 }

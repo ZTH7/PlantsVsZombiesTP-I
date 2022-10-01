@@ -73,18 +73,14 @@ public class ZombiesManager {
 	public Zombie get(int col, int row) {
 		for(int i = 0; i < zombies.size; i++) {
     		if(zombies.zombies[i].getCol() == col && zombies.zombies[i].getRow() == row) {
-    			return this.list[i];
+    			return zombies.zombies[i];
     		}
     	}
 		return null;
 	}
 	
 	public boolean isPositionEmpty(int col, int row){
-		for(int i = 0; i < zombies.size; i++) {
-			if(zombies.zombies[i].getCol() == col && zombies.zombies[i].getRow() == row) {
-    			return false;
-    		   }
-		}
+		if(get(col, row) != null) return false;
 		return true;
 	}
 	
