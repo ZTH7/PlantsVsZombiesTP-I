@@ -1,27 +1,29 @@
 package tp1.p1.logic.gameobjects;
 
-public class Peashooter {
-	int coste = 50;
-	int resistencia = 3;
-	int damage = 1;
-	boolean ciclo = false;
-	
-	public boolean dispara() {
-		
-		return true;
-	}
-	
-	public boolean ciclo() {
-		dispara();
-		
-		return true;
-	}
-	
-	public Peashooter(){
-		
-	}
-	
-	public static String getDescription() {
-		return String.format("[P]eashooter: cost='&s' suncoins, damage='&s', endurance='&s', coste ='&s', resistencia = '&s',damage = '&s'");
-	}
+import tp1.p1.view.Messages;
+
+public class Peashooter extends Plants{
+  public  static int coste = 50;
+   public  static int resistencia = 3;
+   public static int damage = 1;
+    public int frecuencia = 1;
+
+
+    public Peashooter(int col, int row)
+    {
+    	this.vida = this.resistencia;
+    	this.col = col;
+    	this.row = row;
+    }
+
+
+
+    public static String getDescription() {
+        return String.format(Messages.PEASHOOTER_DESCRIPTION, coste, damage, resistencia);
+    }
+
+    @Override
+    public boolean execute() {
+        return false;
+    }
 }

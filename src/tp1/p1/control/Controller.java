@@ -67,17 +67,19 @@ public class Controller {
 		Command command = new Command(game);
 		
 		boolean GameOver = false;
-		String[] str;
-		
-		while(!GameOver)
-		{
-			str = prompt();
-			command.input(str);
-			game.update();
-			if(game.update)
-			{
-				printGame();
-				game.update = false;
+
+		String[] input;
+
+
+
+		while(!GameOver) {
+			input = prompt();
+			Command cmd = Command.matchCmd(input, game);
+
+			if(cmd != null) {
+				if(cmd.execute())
+					game.update();
+					printGame();
 			}
 			game.CicloContador++;
 		}

@@ -87,6 +87,10 @@ public class Messages {
 	public static final String ZOMBIES_WIN = "Zombies win!";
 
 	public static final String PLAYER_WINS = "Player wins!";
+	
+	public static final String WRONG_PARAMETER = "Wrong parameter";
+	
+	
 
 
 	/**

@@ -1,32 +1,35 @@
 package tp1.p1.logic.gameobjects;
 
 
+public class Sunflower extends Plants{
+   public static int coste = 20;
+    public static int resistencia = 1;
+   public static int damage = 0;
+    public static int frecuencia = 2;
 
-public class Sunflower {
-	int coste = 20;
-	int resistencia = 1;
-	int damage = 0;
-	boolean ciclo = false;
-	
-	public Sunflower(){
-		
-	}
-	
-	public boolean GeneraSol() {
-		
-		return true;
-	}
-	
-	public boolean ciclo() {
-		if(ciclo) {
-			GeneraSol();
-			ciclo = false;
-		} else ciclo = true;
-		
-		return true;
-	}
-	
-	public static String getDescription() {
-		return String.format("[S]unflower: cost='&s' suncoins, damage='&s', endurance='&s', coste = '&s',resistencia = '&s',damage = '&s'");
-	}
+
+    public Sunflower(int col, int row)
+    {
+    	this.vida = this.resistencia;
+    	this.col = col;
+    	this.row = row;
+    	this.ciclo = game.CicloContador % this.frecuencia;
+    }
+    
+
+
+    public static String getDescription() {
+        return String.format(Messages.SUNFLOWER_DESCRIPTION, coste, damage, resistencia);
+    }
+
+    @Override
+    public boolean execute() {
+
+    	if(game.CicloContador % frecuencia == this.ciclo)
+    	{
+    		game.soles += 10;
+    		return true;
+    	}
+        return false;
+    }
 }
