@@ -70,9 +70,21 @@ public class ZombiesManager {
 		return remainingZombies;
 	}
 
+	public Zombie get(int col, int row) {
+		//for(int i = 0; i < zombies.size; i++) {
+    	//	if(zombies.zombies[i].getCol() == col && zombies.zombies[i].getRow() == row) {
+    	//		return this.list[i];
+    	//	}
+    	//}
+		return null;
+	}
+	
 	public boolean isPositionEmpty(int col, int row){
-
+		for(int i = 0; i < zombies.size; i++) {
+			//zombies.zombies[i]
+		}
 		return false;
 	}
+	
 	//End
 }

@@ -1,26 +1,16 @@
 package tp1.p1.logic.gameobjects;
 
-import java.util.Vector;
-
-public class SunflowerList extends ObjectList{
-    Sunflower[] SList;
+public class SunflowerList extends PlantsList{
 
     @Override
     public boolean add(int col, int row) {
         Sunflower sunflower = new Sunflower();
-
-
+        
+        
+        this.list[size] = sunflower;
+        this.size++;
 
         return false;
     }
 
-    @Override
-    public boolean remove(int col, int row) {
-        return false;
-    }
-
-    @Override
-    public Object get(int col, int row) {
-        return null;
-    }
 }
