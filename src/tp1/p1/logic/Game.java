@@ -24,15 +24,25 @@ public class Game {
     }
 
     public boolean update() {
-
     	SList.run();
     	PList.run();
+    	zombiesManager.run();
     	
-    	
+    	SList.clear();
+    	PList.clear();
+    	zombiesManager.clear();
 
+    	zombiesManager.addZombie();
+    	
         CicloContador++;
 
         return true;
+    }
+    
+    public boolean checkOver() {
+    	if(zombiesManager.checkZombieWin() || zombiesManager.checkPlayerWin()) return true;
+    	
+    	return false;
     }
 
     public String positionToString(int col, int row) {

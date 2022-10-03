@@ -59,7 +59,8 @@ public class ZombiesManager {
 
 		if(canAdd) {
 			// TODO fill your code
-
+			zombies.add(Game.NUM_COLS, row, game);
+			remainingZombies--;
 			//End
 		}
 		return canAdd;
@@ -77,6 +78,30 @@ public class ZombiesManager {
     		}
     	}
 		return null;
+	}
+	
+	public boolean run() {
+		return zombies.run();
+	}
+	
+	public boolean clear() {
+		return zombies.clear();
+	}
+	
+    public boolean clearAll() {
+    	return zombies.clearAll();
+    }
+	
+	public boolean checkZombieWin() {
+		for(int i = 0; i < zombies.size; i++) {
+    		if(zombies.zombies[i].getCol() < 0) return true;
+    	}
+		return false;
+	}
+	
+	public boolean checkPlayerWin() {
+		if(remainingZombies <= 0 && zombies.size <= 0) return true;
+		return false;
 	}
 	
 	public boolean isPositionEmpty(int col, int row){

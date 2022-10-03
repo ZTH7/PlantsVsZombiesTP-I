@@ -14,6 +14,9 @@ public class ResetCmd extends Command {
     public boolean execute() {
         game.soles = 50;
         game.CicloContador = 0;
+        game.SList.clearAll();
+        game.PList.clearAll();
+        game.zombiesManager.clearAll();
 
         return false;
     }

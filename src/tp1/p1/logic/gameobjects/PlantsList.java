@@ -36,4 +36,25 @@ public abstract class PlantsList {
     	}
     	return true;
     }
+    
+    public boolean clear() {
+		for(int i = 0; i < this.size; i++) {
+    		if(list[i].getVida() <= 0) {
+    			for(int j = i + 1; j < this.size; j++) {
+    				list[j - 1] = list[j];
+    	    	}
+    			this.size--;
+    			i--;
+    		}
+    	}
+		return true;
+	}
+    
+    public boolean clearAll() {
+    	for(int i = 0; i < size; i++) {
+    		list[i] = null;
+    	}
+    	this.size = 0;
+    	return true;
+    }
 }

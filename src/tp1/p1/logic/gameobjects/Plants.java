@@ -1,7 +1,6 @@
 package tp1.p1.logic.gameobjects;
 
 import tp1.p1.logic.Game;
-import tp1.p1.view.Messages;
 
 public abstract class Plants {
     //Atributo fijo
@@ -25,6 +24,14 @@ public abstract class Plants {
     public int getVida() {
         return vida;
     }
-
+    
+    public boolean damage(int val) {
+    	if(this.vida > 0) {
+    		this.vida -= val;
+    		return true;
+    	}
+    	return false;
+    }
+    
     public abstract boolean execute();
 }

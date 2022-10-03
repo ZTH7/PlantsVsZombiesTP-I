@@ -25,7 +25,7 @@ public class AddCmd extends Command {
     		return false;
     	}
     	
-    	if(col < 0 || col >= game.NUM_COLS || row < 0 || row >= game.NUM_ROWS) {
+    	if(col < 0 || col >= Game.NUM_COLS || row < 0 || row >= Game.NUM_ROWS) {
     		
     		System.out.println(String.format(Messages.ERROR, Messages.WRONG_PARAMETER));
     		return false;
@@ -42,6 +42,7 @@ public class AddCmd extends Command {
     		if(name.equalsIgnoreCase("sunflower") || name.equalsIgnoreCase("s")) {
     			if(game.soles >= Sunflower.coste) {
     				game.SList.add(col, row, game);
+    				game.soles -= Sunflower.coste;
     			}
     			else {
     				System.out.println(Messages.NOT_ENOUGH_COINS);
@@ -52,6 +53,7 @@ public class AddCmd extends Command {
     		else if(name.equalsIgnoreCase("peashooter") || name.equalsIgnoreCase("p")) {
     			if(game.soles >= Peashooter.coste) {
     				game.PList.add(col, row, game);
+    				game.soles -= Peashooter.coste;
     			}
     			else {
     				System.out.println(Messages.NOT_ENOUGH_COINS);

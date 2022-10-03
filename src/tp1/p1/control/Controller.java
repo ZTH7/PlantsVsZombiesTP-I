@@ -65,8 +65,6 @@ public class Controller {
 
 		String[] input;
 
-
-
 		while(!GameOver) {
 			input = prompt();
 			Command cmd = Command.matchCmd(input, game);
@@ -75,13 +73,10 @@ public class Controller {
 				if(cmd.execute()) {
 					game.update();
 					printGame();
+					GameOver = game.checkOver();
 				}
 			}
-
-
-
 		}
-
 
 		System.out.println(gamePrinter.endMessage());
 	}
