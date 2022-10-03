@@ -1,7 +1,10 @@
 package tp1.p1.control;
 
+import static tp1.p1.view.Messages.*;
+
 import java.util.Scanner;
 
+import tp1.p1.control.commands.Command;
 import tp1.p1.logic.Game;
 import tp1.p1.view.GamePrinter;
 import tp1.p1.view.Messages;
@@ -56,16 +59,26 @@ public class Controller {
 	/**
 	 * Runs the game logic.
 	 */
-	
-	String debug(String line) {
-		return Messages.debug(line);
-	}
-	
 	public void run() {
 		// TODO fill your code
-		
-		
-		
-		gamePrinter.endMessage();
+		boolean GameOver = false;
+
+		String[] input;
+
+		while(!GameOver) {
+			input = prompt();
+			Command cmd = Command.matchCmd(input, game);
+
+			if(cmd != null) {
+				if(cmd.execute()) {
+					game.update();
+					printGame();
+					GameOver = game.checkOver();
+				}
+			}
+		}
+
+		System.out.println(gamePrinter.endMessage());
 	}
+
 }
