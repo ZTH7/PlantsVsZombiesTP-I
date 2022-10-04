@@ -7,7 +7,7 @@ public class Sunflower extends Plants{
     public static int coste = 20;
     public static int resistencia = 1;
     public static int damage = 0;
-    public static int frecuencia = 2;
+    public static int frecuencia = 3;
 
     public Sunflower(int col, int row, Game game) {
     	this.vida = Sunflower.resistencia;
@@ -15,7 +15,7 @@ public class Sunflower extends Plants{
     	this.row = row;
     	this.game = game;
     	
-    	this.ciclo = game.CicloContador % Sunflower.frecuencia;
+    	this.ciclo = Sunflower.frecuencia;
     }
 
 
@@ -26,10 +26,11 @@ public class Sunflower extends Plants{
     @Override
     public boolean execute() {
 
-    	if(game.CicloContador % frecuencia == this.ciclo) {
+    	if(this.ciclo == 0) {
     		game.soles += 10;
+    		this.ciclo = Sunflower.frecuencia - 1;
     		return true;
-    	}
+    	} else this.ciclo--;
 
         return false;
     }

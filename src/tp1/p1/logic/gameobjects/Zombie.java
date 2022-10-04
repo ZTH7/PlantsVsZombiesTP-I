@@ -4,12 +4,14 @@ import tp1.p1.logic.Game;
 
 public class Zombie {
 	
-	public static int resistencia = 3;
+	public static int resistencia = 5;
     public static int damage = 1;
+    public static int frecuencia = 1;
     
 	private int vida;
     private int col;
     private int row;
+    private int ciclo;
     
     Game game;
     
@@ -18,6 +20,7 @@ public class Zombie {
 		this.row = row;
 		this.vida = Zombie.resistencia;
 		this.game = game;
+		ciclo = frecuencia;
 	}
 
     public int getCol() {
@@ -37,15 +40,26 @@ public class Zombie {
     		this.vida -= val;
     		return true;
     	}
+    	
     	return false;
     }
 
     public boolean move(){
-        this.col--;
+    	if(this.ciclo == 0) {
+    		this.col--;
+    		this.ciclo = frecuencia;
+    	} else this.ciclo--;
+        
         return true;
     }
     
     public boolean attack(Plants plant) {
-    	return plant.damage(damage);
+    	boolean res = false;
+    	if(this.ciclo == 0) {
+    		res = plant.damage(damage);
+    		this.ciclo = frecuencia;
+    	} else this.ciclo--;
+        
+        return res;
     }
 }

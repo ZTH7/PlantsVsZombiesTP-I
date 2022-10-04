@@ -14,9 +14,8 @@ public class Peashooter extends Plants{
     	this.col = col;
     	this.row = row;
     	this.game = game;
-    	this.ciclo = game.CicloContador % Sunflower.frecuencia;
+    	this.ciclo = Sunflower.frecuencia;
     }
-
 
 
     public static String getDescription() {
@@ -25,7 +24,7 @@ public class Peashooter extends Plants{
 
     @Override
     public boolean execute() {
-    	for(int i = 0; i <= Game.NUM_COLS; i++) {
+    	for(int i = this.col; i < Game.NUM_COLS; i++) {
     		Zombie zomb = game.zombiesManager.get(i, this.row);
     		if(zomb != null) {
     			if(zomb.damage(Peashooter.damage)) return true;

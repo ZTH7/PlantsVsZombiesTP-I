@@ -44,9 +44,9 @@ public class GamePrinter {
 		StringBuilder buffer = new StringBuilder();
 
 		// TODO fill your code
-		buffer.append(Messages.NUMBER_OF_CYCLES + (game.CicloContador - 1) + "\n");
-		buffer.append(Messages.NUMBER_OF_COINS + game.soles + "\n");
-		buffer.append(Messages.REMAINING_ZOMBIES + game.zombiesManager.getRemainingZombies() + "\n");
+		buffer.append(Messages.NUMBER_OF_CYCLES + " " + game.CicloContador + "\n");
+		buffer.append(Messages.NUMBER_OF_COINS + " " + game.soles + "\n");
+		buffer.append(Messages.REMAINING_ZOMBIES + " " + game.zombiesManager.getRemainingZombies() + "\n");
 		//End
 		return buffer.toString();
 	}

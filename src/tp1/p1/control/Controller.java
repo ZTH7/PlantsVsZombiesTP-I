@@ -64,6 +64,8 @@ public class Controller {
 		boolean GameOver = false;
 
 		String[] input;
+		
+		printGame();
 
 		while(!GameOver) {
 			input = prompt();

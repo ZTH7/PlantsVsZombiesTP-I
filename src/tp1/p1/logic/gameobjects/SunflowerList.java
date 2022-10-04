@@ -13,7 +13,6 @@ public class SunflowerList extends PlantsList{
     public boolean add(int col, int row, Game game) {
         Sunflower sunflower = new Sunflower(col, row, game);
         
-        
         this.list[size] = sunflower;
         this.size++;
 

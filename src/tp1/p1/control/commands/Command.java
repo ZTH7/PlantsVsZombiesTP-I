@@ -13,6 +13,7 @@ public abstract class Command {
         if(input[0].equalsIgnoreCase("a") || input[0].equalsIgnoreCase("add")) {
             if(input.length != 4) {
                 System.out.printf(Messages.ERROR, Messages.COMMAND_PARAMETERS_MISSING);
+                System.out.println();
                 return null;
             }
             return new AddCmd(input, game);
@@ -34,6 +35,7 @@ public abstract class Command {
         }
         else {
             System.out.printf(Messages.ERROR, Messages.UNKNOWN_COMMAND);
+            System.out.println();
         }
 
         return null;

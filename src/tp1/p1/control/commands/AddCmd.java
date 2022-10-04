@@ -30,10 +30,6 @@ public class AddCmd extends Command {
     		System.out.println(String.format(Messages.ERROR, Messages.WRONG_PARAMETER));
     		return false;
     	}
-    				
-    			
-    					 
-    			
     	
     	if(game.PList.get(col, row) == null &&
     			game.SList.get(col, row) == null && 
