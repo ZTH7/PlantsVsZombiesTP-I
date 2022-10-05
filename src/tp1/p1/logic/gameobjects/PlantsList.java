@@ -49,12 +49,4 @@ public abstract class PlantsList {
     	}
 		return true;
 	}
-    
-    public boolean clearAll() {
-    	for(int i = 0; i < size; i++) {
-    		list[i] = null;
-    	}
-    	this.size = 0;
-    	return true;
-    }
 }

@@ -34,14 +34,6 @@ public class ZombieList{
 		return true;
 	}
     
-    public boolean clearAll() {
-    	for(int i = 0; i < this.size; i++) {
-    		zombies[i] = null;
-    	}
-    	this.size = 0;
-    	return true;
-    }
-    
     public boolean run() {
     	Plants plant;
     	for(int i = 0; i < size; i++) {

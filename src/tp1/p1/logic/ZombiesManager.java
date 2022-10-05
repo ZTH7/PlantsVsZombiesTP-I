@@ -88,10 +88,6 @@ public class ZombiesManager {
 		return zombies.clear();
 	}
 	
-    public boolean clearAll() {
-    	return zombies.clearAll();
-    }
-	
 	public boolean checkZombieWin() {
 		for(int i = 0; i < zombies.size; i++) {
     		if(zombies.zombies[i].getCol() < 0) return true;
@@ -100,13 +96,11 @@ public class ZombiesManager {
 	}
 	
 	public boolean checkPlayerWin() {
-		if(remainingZombies <= 0 && zombies.size <= 0) return true;
-		return false;
+		return remainingZombies <= 0 && zombies.size <= 0;
 	}
 	
 	public boolean isPositionEmpty(int col, int row){
-		if(get(col, row) != null) return false;
-		return true;
+		return get(col, row) == null;
 	}
 	
 	//End
