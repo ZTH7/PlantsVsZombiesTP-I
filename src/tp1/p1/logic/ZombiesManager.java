@@ -72,12 +72,7 @@ public class ZombiesManager {
 	}
 
 	public Zombie get(int col, int row) {
-		for(int i = 0; i < zombies.size; i++) {
-    		if(zombies.zombies[i].getCol() == col && zombies.zombies[i].getRow() == row) {
-    			return zombies.zombies[i];
-    		}
-    	}
-		return null;
+		return zombies.get(col, row);
 	}
 	
 	public boolean run() {
@@ -89,14 +84,11 @@ public class ZombiesManager {
 	}
 	
 	public boolean checkZombieWin() {
-		for(int i = 0; i < zombies.size; i++) {
-    		if(zombies.zombies[i].getCol() < 0) return true;
-    	}
-		return false;
+		return zombies.checkZombieWin();
 	}
 	
 	public boolean checkPlayerWin() {
-		return remainingZombies <= 0 && zombies.size <= 0;
+		return remainingZombies <= 0 && zombies.getSize() <= 0;
 	}
 	
 	public boolean isPositionEmpty(int col, int row){

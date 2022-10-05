@@ -3,8 +3,8 @@ package tp1.p1.logic.gameobjects;
 import tp1.p1.logic.Game;
 
 public class ZombieList{
-    public Zombie[] zombies;
-    public int size = 0;
+    private Zombie[] zombies;
+    private int size = 0;
     
     Game game;
     
@@ -34,11 +34,30 @@ public class ZombieList{
 		return true;
 	}
     
+    public Zombie get(int col, int row) {
+		for(int i = 0; i < this.size; i++) {
+    		if(this.zombies[i].getCol() == col && this.zombies[i].getRow() == row) {
+    			return this.zombies[i];
+    		}
+    	}
+		return null;
+	}
+    
+    public boolean checkZombieWin() {
+		for(int i = 0; i < this.size; i++) {
+    		if(this.zombies[i].getCol() < 0) return true;
+    	}
+		return false;
+	}
+    
+    public int getSize() {
+    	return this.size;
+    }
+    
     public boolean run() {
     	Plants plant;
     	for(int i = 0; i < size; i++) {
-    		plant = game.PList.get(zombies[i].getCol() - 1, zombies[i].getRow());
-    		if(plant == null) plant = game.SList.get(zombies[i].getCol() - 1, zombies[i].getRow());
+    		plant = game.getPlant(zombies[i].getCol() - 1, zombies[i].getRow());
     		
     		if(plant != null) {
     			zombies[i].attack(plant);

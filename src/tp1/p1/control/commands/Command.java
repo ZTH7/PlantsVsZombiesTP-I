@@ -4,8 +4,8 @@ import tp1.p1.logic.Game;
 import tp1.p1.view.Messages;
 
 public abstract class Command {
-    Game game;
-    String[] input;
+    protected Game game;
+    protected String[] input;
 
 
     public static Command matchCmd(String[] input, Game game){

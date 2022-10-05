@@ -3,8 +3,8 @@ package tp1.p1.logic.gameobjects;
 import tp1.p1.logic.*;
 
 public abstract class PlantsList {
-	public Plants[] list;
-	public int size = 0;
+	protected Plants[] list;
+	protected int size = 0;
 
     public abstract boolean add(int col, int row, Game game);
     

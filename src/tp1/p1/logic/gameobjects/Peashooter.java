@@ -25,7 +25,7 @@ public class Peashooter extends Plants{
     @Override
     public boolean execute() {
     	for(int i = this.col; i < Game.NUM_COLS; i++) {
-    		Zombie zomb = game.zombiesManager.get(i, this.row);
+    		Zombie zomb = game.getZombie(i, this.row);
     		if(zomb != null) {
     			if(zomb.damage(Peashooter.damage)) return true;
     		}

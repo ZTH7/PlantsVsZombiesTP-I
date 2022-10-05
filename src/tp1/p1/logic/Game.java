@@ -10,16 +10,16 @@ public class Game {
     public static int NUM_COLS = 8;
     public static int NUM_ROWS = 4;
     
-    public int soles = 50;
-    public int CicloContador = 0;
-    public Level level;
+    private int soles = 50;
+    private int CicloContador = 0;
+    private Level level;
     
     
-    public ZombiesManager zombiesManager;
+    private ZombiesManager zombiesManager;
     private Random rand;
 
-    public SunflowerList SList = new SunflowerList(NUM_COLS, NUM_ROWS);
-    public PeashooterList PList = new PeashooterList(NUM_COLS, NUM_ROWS);
+    private SunflowerList SList = new SunflowerList(NUM_COLS, NUM_ROWS);
+    private PeashooterList PList = new PeashooterList(NUM_COLS, NUM_ROWS);
     
     public Game(long seed, Level level){
     	this.level = level;
@@ -56,6 +56,45 @@ public class Game {
         return true;
     }
 
+    public Plants getPlant(int col, int row) {
+    	Plants plant;
+    	plant = SList.get(col, row);
+		if(plant == null) plant = PList.get(col, row);
+    	return plant;
+    }
+    
+    public Zombie getZombie(int col, int row) {
+    	return zombiesManager.get(col, row);
+    }
+    
+    public int getRemainingZombies() {
+    	return zombiesManager.getRemainingZombies();
+    }
+    
+    public int getCicloContador() {
+    	return this.CicloContador;
+    }
+    
+    public void addCicloContador() {
+    	this.CicloContador++;
+    }
+    
+    public int getSoles() {
+    	return this.soles;
+    }
+    
+    public void addSoles(int num) {
+    	this.soles += num;
+    }
+    
+    public boolean addSunflower(int col, int row, Game game) {
+    	return SList.add(col, row, game);
+    }
+    
+    public boolean addPeashooter(int col, int row, Game game) {
+    	return PList.add(col, row, game);
+    }
+    
     public String positionToString(int col, int row) {
 
         Zombie zomb = zombiesManager.get(col, row);

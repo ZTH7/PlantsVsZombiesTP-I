@@ -27,7 +27,7 @@ public class Sunflower extends Plants{
     public boolean execute() {
 
     	if(this.ciclo == 0) {
-    		game.soles += 10;
+    		game.addSoles(10);
     		this.ciclo = Sunflower.frecuencia - 1;
     		return true;
     	} else this.ciclo--;
