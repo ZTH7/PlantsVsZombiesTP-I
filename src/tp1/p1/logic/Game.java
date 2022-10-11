@@ -30,11 +30,11 @@ public class Game {
     public boolean update() {
     	SList.run();
     	PList.run();
-    	zombiesManager.run();
+    	zombiesManager.clear();
     	
+    	zombiesManager.run();
     	SList.clear();
     	PList.clear();
-    	zombiesManager.clear();
 
     	zombiesManager.addZombie();
     	
@@ -63,12 +63,8 @@ public class Game {
     	return plant;
     }
     
-    public Zombie getZombie(int col, int row) {
-    	return zombiesManager.get(col, row);
-    }
-    
-    public int getRemainingZombies() {
-    	return zombiesManager.getRemainingZombies();
+    public ZombiesManager getZombiesManager() {
+    	return zombiesManager;
     }
     
     public int getCicloContador() {
@@ -87,12 +83,12 @@ public class Game {
     	this.soles += num;
     }
     
-    public boolean addSunflower(int col, int row, Game game) {
-    	return SList.add(col, row, game);
+    public SunflowerList getSunflowerList() {
+    	return this.SList;
     }
     
-    public boolean addPeashooter(int col, int row, Game game) {
-    	return PList.add(col, row, game);
+    public PeashooterList getPeashooterList() {
+    	return this.PList;
     }
     
     public String positionToString(int col, int row) {

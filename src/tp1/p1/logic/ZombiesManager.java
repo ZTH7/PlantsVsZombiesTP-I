@@ -92,8 +92,6 @@ public class ZombiesManager {
 	}
 	
 	public boolean isPositionEmpty(int col, int row){
-		return get(col, row) == null;
+		return zombies.get(col, row) == null;
 	}
-	
-	//End
 }
