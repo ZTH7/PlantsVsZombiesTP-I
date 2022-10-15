@@ -46,7 +46,7 @@ public class GamePrinter {
 		// TODO fill your code
 		buffer.append(Messages.NUMBER_OF_CYCLES + " " + game.getCicloContador() + NEW_LINE);
 		buffer.append(Messages.NUMBER_OF_COINS + " " + game.getSoles() + NEW_LINE);
-		buffer.append(Messages.REMAINING_ZOMBIES + " " + game.getZombiesManager().getRemainingZombies() + NEW_LINE);
+		buffer.append(Messages.REMAINING_ZOMBIES + " " + game.getRemainingZombies() + NEW_LINE);
 
 		return buffer.toString();
 	}
@@ -90,7 +90,10 @@ public class GamePrinter {
 
 		// TODO your code here
 		buffer.append(NEW_LINE);
-		buffer.append(game.getZombiesManager().getRemainingZombies() == 0 ? Messages.PLAYER_WINS : Messages.ZOMBIES_WIN);
+		if(game.ifPlayerExit()) buffer.append(Messages.PLAYER_QUITS);
+		else if(game.getRemainingZombies() == 0) buffer.append(Messages.PLAYER_WINS);
+		else buffer.append(Messages.ZOMBIES_WIN);
+		
 
 		return buffer.toString();
 	}

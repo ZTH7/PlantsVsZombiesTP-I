@@ -73,7 +73,6 @@ public class Controller {
 
 			if(cmd != null) {
 				if(cmd.execute()) {
-					game.update();
 					printGame();
 					GameOver = game.checkOver();
 				}

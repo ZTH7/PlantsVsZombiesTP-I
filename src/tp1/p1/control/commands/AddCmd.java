@@ -31,11 +31,11 @@ public class AddCmd extends Command {
     		return false;
     	}
     	
-    	if(game.getPlant(col, row) == null && game.getZombiesManager().get(col, row) == null) {
+    	if(game.getPlant(col, row) == null && game.getZombie(col, row) == null) {
     		
     		if(name.equalsIgnoreCase("sunflower") || name.equalsIgnoreCase("s")) {
     			if(game.getSoles() >= Sunflower.coste) {
-    				game.getSunflowerList().add(col, row, game);
+    				game.addSunflower(col, row, game);
     				game.addSoles(-Sunflower.coste);
     			}
     			else {
@@ -46,7 +46,7 @@ public class AddCmd extends Command {
     		}
     		else if(name.equalsIgnoreCase("peashooter") || name.equalsIgnoreCase("p")) {
     			if(game.getSoles() >= Peashooter.coste) {
-    				game.getPeashooterList().add(col, row, game);
+    				game.addPeashooter(col, row, game);
     				game.addSoles(-Peashooter.coste);
     			}
     			else {
@@ -64,6 +64,7 @@ public class AddCmd extends Command {
 			return false;
     	}
     	
+    	game.update();
     	
         return true;
     }

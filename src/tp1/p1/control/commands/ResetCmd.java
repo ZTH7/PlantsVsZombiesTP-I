@@ -13,6 +13,6 @@ public class ResetCmd extends Command {
     @Override
     public boolean execute() {
     	game.Reset();
-        return false;
+        return true;
     }
 }

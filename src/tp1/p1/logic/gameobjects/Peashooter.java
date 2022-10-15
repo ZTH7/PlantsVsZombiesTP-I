@@ -3,7 +3,7 @@ package tp1.p1.logic.gameobjects;
 import tp1.p1.view.Messages;
 import tp1.p1.logic.*;
 
-public class Peashooter extends Plants{
+public class Peashooter extends GameObj{
     public static int coste = 50;
     public static int resistencia = 3;
     public static int damage = 1;
@@ -25,7 +25,7 @@ public class Peashooter extends Plants{
     @Override
     public boolean execute() {
     	for(int i = this.col; i < Game.NUM_COLS; i++) {
-    		Zombie zomb = game.getZombiesManager().get(i, this.row);
+    		GameObj zomb = game.getZombie(i, this.row);
     		if(zomb != null) {
     			if(zomb.damage(Peashooter.damage)) return true;
     		}

@@ -3,7 +3,7 @@ package tp1.p1.logic.gameobjects;
 import tp1.p1.view.Messages;
 import tp1.p1.logic.*;
 
-public class Sunflower extends Plants{
+public class Sunflower extends GameObj{
     public static int coste = 20;
     public static int resistencia = 1;
     public static int damage = 0;

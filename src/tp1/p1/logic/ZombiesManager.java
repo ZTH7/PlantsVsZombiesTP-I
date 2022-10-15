@@ -3,7 +3,7 @@ package tp1.p1.logic;
 import java.util.Random;
 
 import tp1.p1.control.Level;
-import tp1.p1.logic.gameobjects.Zombie;
+import tp1.p1.logic.gameobjects.GameObj;
 import tp1.p1.logic.gameobjects.ZombieList;
 
 /**
@@ -61,7 +61,6 @@ public class ZombiesManager {
 			// TODO fill your code
 			zombies.add(Game.NUM_COLS, row, game);
 			remainingZombies--;
-			//End
 		}
 		return canAdd;
 	}
@@ -71,7 +70,7 @@ public class ZombiesManager {
 		return remainingZombies;
 	}
 
-	public Zombie get(int col, int row) {
+	public GameObj get(int col, int row) {
 		return zombies.get(col, row);
 	}
 	

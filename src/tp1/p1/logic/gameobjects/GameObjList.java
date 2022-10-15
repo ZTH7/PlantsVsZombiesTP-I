@@ -2,8 +2,8 @@ package tp1.p1.logic.gameobjects;
 
 import tp1.p1.logic.*;
 
-public abstract class PlantsList {
-	protected Plants[] list;
+public abstract class GameObjList {
+	protected GameObj[] list;
 	protected int size = 0;
 
     public abstract boolean add(int col, int row, Game game);
@@ -21,7 +21,7 @@ public abstract class PlantsList {
     	return false;
     }
     
-    public Plants get(int col, int row) {
+    public GameObj get(int col, int row) {
     	for(int i = 0; i < this.size; i++) {
     		if(this.list[i].getCol() == col && this.list[i].getRow() == row) {
     			return this.list[i];

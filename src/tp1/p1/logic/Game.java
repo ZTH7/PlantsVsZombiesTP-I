@@ -17,7 +17,7 @@ public class Game {
     
     private ZombiesManager zombiesManager;
     private Random rand;
-
+    private boolean exit = false;
     private SunflowerList SList = new SunflowerList(NUM_COLS, NUM_ROWS);
     private PeashooterList PList = new PeashooterList(NUM_COLS, NUM_ROWS);
     
@@ -39,12 +39,12 @@ public class Game {
     	zombiesManager.addZombie();
     	
         CicloContador++;
-
+        
         return true;
     }
     
     public boolean checkOver() {
-    	return zombiesManager.checkZombieWin() || zombiesManager.checkPlayerWin();
+    	return zombiesManager.checkZombieWin() || zombiesManager.checkPlayerWin() || exit;
     }
     
     public boolean Reset() {
@@ -56,15 +56,11 @@ public class Game {
         return true;
     }
 
-    public Plants getPlant(int col, int row) {
-    	Plants plant;
+    public GameObj getPlant(int col, int row) {
+    	GameObj plant;
     	plant = SList.get(col, row);
 		if(plant == null) plant = PList.get(col, row);
     	return plant;
-    }
-    
-    public ZombiesManager getZombiesManager() {
-    	return zombiesManager;
     }
     
     public int getCicloContador() {
@@ -83,25 +79,41 @@ public class Game {
     	this.soles += num;
     }
     
-    public SunflowerList getSunflowerList() {
-    	return this.SList;
+    public void playerExit() {
+    	exit = true;
     }
     
-    public PeashooterList getPeashooterList() {
-    	return this.PList;
+    public boolean ifPlayerExit() {
+    	return exit;
+    }
+    
+    public void addPeashooter(int col, int row, Game game) {
+    	PList.add(col, row, game);
+    }
+    
+    public void addSunflower(int col, int row, Game game) {
+    	SList.add(col, row, game);
+    }
+    
+    public Zombie getZombie(int col, int row) {
+    	return (Zombie)zombiesManager.get(col, row);
+    }
+    
+    public int getRemainingZombies() {
+    	return zombiesManager.getRemainingZombies();
     }
     
     public String positionToString(int col, int row) {
 
-        Zombie zomb = zombiesManager.get(col, row);
+        GameObj zomb = zombiesManager.get(col, row);
         if (zomb != null) {
         	return String.format(Messages.ZOMBIE_ICON, zomb.getVida());
         }
-        Plants sunf = SList.get(col, row);
+        GameObj sunf = SList.get(col, row);
         if (sunf != null) {
         	return String.format(Messages.SUNFLOWER_ICON, sunf.getVida());
         }
-        Plants peas = PList.get(col, row);
+        GameObj peas = PList.get(col, row);
         if (peas != null) {
         	return String.format(Messages.PEASHOOTER_ICON, peas.getVida());
         }

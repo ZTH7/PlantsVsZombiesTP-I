@@ -2,7 +2,7 @@ package tp1.p1.logic.gameobjects;
 
 import tp1.p1.logic.Game;
 
-public abstract class Plants {
+public abstract class GameObj {
     //Atributo fijo
     protected Game game;
 

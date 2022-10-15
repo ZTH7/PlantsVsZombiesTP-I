@@ -1,10 +1,12 @@
 package tp1.p1.control.commands;
 
+import tp1.p1.control.Controller;
 import tp1.p1.logic.Game;
 import tp1.p1.view.Messages;
 
 public abstract class Command {
     protected Game game;
+    protected Controller controller;
     protected String[] input;
 
 
