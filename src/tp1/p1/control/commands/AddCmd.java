@@ -21,17 +21,17 @@ public class AddCmd extends Command {
     		row = Integer.parseInt(input[3]);
     	}
     	catch(Exception e) {
-    		System.out.println(String.format(Messages.ERROR, Messages.WRONG_PARAMETER));
+    		System.out.println(String.format(Messages.ERROR, Messages.INVALID_POSITION));
     		return false;
     	}
     	
     	if(col < 0 || col >= Game.NUM_COLS || row < 0 || row >= Game.NUM_ROWS) {
     		
-    		System.out.println(String.format(Messages.ERROR, Messages.WRONG_PARAMETER));
+    		System.out.println(String.format(Messages.ERROR, Messages.INVALID_POSITION));
     		return false;
     	}
     	
-    	if(game.getPlant(col, row) == null && game.getZombie(col, row) == null) {
+    	if(!game.hasPlant(col, row) && !game.hasZombie(col, row)) {
     		
     		if(name.equalsIgnoreCase("sunflower") || name.equalsIgnoreCase("s")) {
     			if(game.getSoles() >= Sunflower.coste) {
@@ -55,12 +55,12 @@ public class AddCmd extends Command {
     			}
     		}
     		else {
-    			System.out.println(String.format(Messages.ERROR, Messages.WRONG_PARAMETER));
+    			System.out.println(String.format(Messages.ERROR, Messages.INVALID_GAME_OBJECT));
     			return false;
     		}
     	}
     	else {
-    		System.out.println(String.format(Messages.ERROR, Messages.WRONG_PARAMETER));
+    		System.out.println(String.format(Messages.ERROR, Messages.INVALID_POSITION));
 			return false;
     	}
     	

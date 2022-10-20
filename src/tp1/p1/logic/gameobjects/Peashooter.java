@@ -25,12 +25,8 @@ public class Peashooter extends GameObj{
     @Override
     public boolean execute() {
     	for(int i = this.col; i < Game.NUM_COLS; i++) {
-    		GameObj zomb = game.getZombie(i, this.row);
-    		if(zomb != null) {
-    			if(zomb.damage(Peashooter.damage)) return true;
-    		}
+    		if(game.hurtZombie(i, row, damage)) return true;
     	}
-    	
-        return false;
+    	return false;
     }
 }

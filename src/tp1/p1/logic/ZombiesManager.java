@@ -3,7 +3,6 @@ package tp1.p1.logic;
 import java.util.Random;
 
 import tp1.p1.control.Level;
-import tp1.p1.logic.gameobjects.GameObj;
 import tp1.p1.logic.gameobjects.ZombieList;
 
 /**
@@ -69,10 +68,22 @@ public class ZombiesManager {
 	public int getRemainingZombies() {
 		return remainingZombies;
 	}
-
-	public GameObj get(int col, int row) {
-		return zombies.get(col, row);
+	
+	public boolean hasObj(int col, int row) {
+		return zombies.hasObj(col, row);
 	}
+	
+	public int getVida(int col, int row) {
+		return zombies.getVida(col, row);
+	}
+	
+	public boolean hurtZombie(int col, int row, int damage) {
+		return zombies.hurt(col, row, damage);
+	}
+
+//	public GameObj get(int col, int row) {
+//		return zombies.get(col, row);
+//	}
 	
 	public boolean run() {
 		return zombies.run();
@@ -91,6 +102,6 @@ public class ZombiesManager {
 	}
 	
 	public boolean isPositionEmpty(int col, int row){
-		return zombies.get(col, row) == null;
+		return !zombies.hasObj(col, row);
 	}
 }

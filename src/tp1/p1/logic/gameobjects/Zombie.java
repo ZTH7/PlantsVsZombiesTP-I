@@ -17,15 +17,6 @@ public class Zombie extends GameObj {
 		this.game = game;
 		ciclo = frecuencia;
 	}
-    
-    public boolean damage(int val) {
-    	if(this.vida > 0) {
-    		this.vida -= val;
-    		return true;
-    	}
-    	
-    	return false;
-    }
 
     public boolean move(){
     	if(this.ciclo == 0) {
@@ -46,9 +37,7 @@ public class Zombie extends GameObj {
     
     @Override
     public boolean execute() {
-    	GameObj plant = game.getPlant(col - 1, row);
-    	if(plant != null) attack(plant);
-    	else move();
+    	if(!game.hurtPlant(col - 1, row, damage)) move();
     	return true;
     }
 }

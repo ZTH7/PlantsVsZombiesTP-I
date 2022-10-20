@@ -56,12 +56,12 @@ public class Game {
         return true;
     }
 
-    public GameObj getPlant(int col, int row) {
-    	GameObj plant;
-    	plant = SList.get(col, row);
-		if(plant == null) plant = PList.get(col, row);
-    	return plant;
-    }
+//    public GameObj getPlant(int col, int row) {
+//    	GameObj plant;
+//    	plant = SList.get(col, row);
+//		if(plant == null) plant = PList.get(col, row);
+//    	return plant;
+//    }
     
     public int getCicloContador() {
     	return this.CicloContador;
@@ -95,9 +95,25 @@ public class Game {
     	SList.add(col, row, game);
     }
     
-    public Zombie getZombie(int col, int row) {
-    	return (Zombie)zombiesManager.get(col, row);
+    public boolean hurtZombie(int col, int row, int damage) {
+    	return zombiesManager.hurtZombie(col, row, damage);
     }
+    
+    public boolean hurtPlant(int col, int row, int damage) {
+    	return SList.hurt(col, row, damage) || PList.hurt(col, row, damage);
+    }
+    
+    public boolean hasPlant(int col, int row) {
+    	return SList.hasObj(col, row) || PList.hasObj(col, row);
+    }
+    
+    public boolean hasZombie(int col, int row) {
+    	return zombiesManager.hasObj(col, row);
+    }
+    
+//    public Zombie getZombie(int col, int row) {
+//    	return (Zombie)zombiesManager.get(col, row);
+//    }
     
     public int getRemainingZombies() {
     	return zombiesManager.getRemainingZombies();
@@ -105,17 +121,14 @@ public class Game {
     
     public String positionToString(int col, int row) {
 
-        GameObj zomb = zombiesManager.get(col, row);
-        if (zomb != null) {
-        	return String.format(Messages.ZOMBIE_ICON, zomb.getVida());
+        if (zombiesManager.hasObj(col, row)) {
+        	return String.format(Messages.ZOMBIE_ICON, zombiesManager.getVida(col, row));
         }
-        GameObj sunf = SList.get(col, row);
-        if (sunf != null) {
-        	return String.format(Messages.SUNFLOWER_ICON, sunf.getVida());
+        if (SList.hasObj(col, row)) {
+        	return String.format(Messages.SUNFLOWER_ICON, SList.getVida(col, row));
         }
-        GameObj peas = PList.get(col, row);
-        if (peas != null) {
-        	return String.format(Messages.PEASHOOTER_ICON, peas.getVida());
+        if (PList.hasObj(col, row)) {
+        	return String.format(Messages.PEASHOOTER_ICON, PList.getVida(col, row));
         }
 
         return "";
