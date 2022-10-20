@@ -3,7 +3,6 @@ package tp1.p1.logic;
 import java.util.Random;
 
 import tp1.p1.control.Level;
-import tp1.p1.logic.gameobjects.Zombie;
 import tp1.p1.logic.gameobjects.ZombieList;
 
 /**
@@ -61,7 +60,6 @@ public class ZombiesManager {
 			// TODO fill your code
 			zombies.add(Game.NUM_COLS, row, game);
 			remainingZombies--;
-			//End
 		}
 		return canAdd;
 	}
@@ -70,15 +68,22 @@ public class ZombiesManager {
 	public int getRemainingZombies() {
 		return remainingZombies;
 	}
-
-	public Zombie get(int col, int row) {
-		for(int i = 0; i < zombies.size; i++) {
-    		if(zombies.zombies[i].getCol() == col && zombies.zombies[i].getRow() == row) {
-    			return zombies.zombies[i];
-    		}
-    	}
-		return null;
+	
+	public boolean hasObj(int col, int row) {
+		return zombies.hasObj(col, row);
 	}
+	
+	public int getVida(int col, int row) {
+		return zombies.getVida(col, row);
+	}
+	
+	public boolean hurtZombie(int col, int row, int damage) {
+		return zombies.hurt(col, row, damage);
+	}
+
+//	public GameObj get(int col, int row) {
+//		return zombies.get(col, row);
+//	}
 	
 	public boolean run() {
 		return zombies.run();
@@ -88,26 +93,15 @@ public class ZombiesManager {
 		return zombies.clear();
 	}
 	
-    public boolean clearAll() {
-    	return zombies.clearAll();
-    }
-	
 	public boolean checkZombieWin() {
-		for(int i = 0; i < zombies.size; i++) {
-    		if(zombies.zombies[i].getCol() < 0) return true;
-    	}
-		return false;
+		return zombies.checkZombieWin();
 	}
 	
 	public boolean checkPlayerWin() {
-		if(remainingZombies <= 0 && zombies.size <= 0) return true;
-		return false;
+		return remainingZombies <= 0 && zombies.getSize() <= 0;
 	}
 	
 	public boolean isPositionEmpty(int col, int row){
-		if(get(col, row) != null) return false;
-		return true;
+		return !zombies.hasObj(col, row);
 	}
-	
-	//End
 }

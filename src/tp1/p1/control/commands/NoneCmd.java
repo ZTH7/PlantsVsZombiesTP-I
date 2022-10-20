@@ -12,7 +12,7 @@ public class NoneCmd extends Command {
 
     @Override
     public boolean execute() {
-        //game.update();
+    	game.update();
         return true;
     }
 }

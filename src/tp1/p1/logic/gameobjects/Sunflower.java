@@ -3,11 +3,11 @@ package tp1.p1.logic.gameobjects;
 import tp1.p1.view.Messages;
 import tp1.p1.logic.*;
 
-public class Sunflower extends Plants{
+public class Sunflower extends GameObj{
     public static int coste = 20;
     public static int resistencia = 1;
     public static int damage = 0;
-    public static int frecuencia = 2;
+    public static int frecuencia = 3;
 
     public Sunflower(int col, int row, Game game) {
     	this.vida = Sunflower.resistencia;
@@ -15,7 +15,7 @@ public class Sunflower extends Plants{
     	this.row = row;
     	this.game = game;
     	
-    	this.ciclo = game.CicloContador % Sunflower.frecuencia;
+    	this.ciclo = Sunflower.frecuencia;
     }
 
 
@@ -26,10 +26,11 @@ public class Sunflower extends Plants{
     @Override
     public boolean execute() {
 
-    	if(game.CicloContador % frecuencia == this.ciclo) {
-    		game.soles += 10;
+    	if(this.ciclo == 0) {
+    		game.addSoles(10);
+    		this.ciclo = Sunflower.frecuencia - 1;
     		return true;
-    	}
+    	} else this.ciclo--;
 
         return false;
     }

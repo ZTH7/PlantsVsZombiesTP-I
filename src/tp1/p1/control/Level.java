@@ -27,8 +27,6 @@ public enum Level {
 		return zombieFrequency;
 	}
 
-	//End
-
 	/**
 	 * Parse an string and return any matching level
 	 * 

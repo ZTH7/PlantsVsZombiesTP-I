@@ -64,6 +64,8 @@ public class Controller {
 		boolean GameOver = false;
 
 		String[] input;
+		
+		printGame();
 
 		while(!GameOver) {
 			input = prompt();
@@ -71,14 +73,13 @@ public class Controller {
 
 			if(cmd != null) {
 				if(cmd.execute()) {
-					game.update();
 					printGame();
 					GameOver = game.checkOver();
 				}
 			}
 		}
 
-		System.out.println(gamePrinter.endMessage());
+		printEndMessage();
 	}
 
 }

@@ -1,11 +1,13 @@
 package tp1.p1.control.commands;
 
+import tp1.p1.control.Controller;
 import tp1.p1.logic.Game;
 import tp1.p1.view.Messages;
 
 public abstract class Command {
-    Game game;
-    String[] input;
+    protected Game game;
+    protected Controller controller;
+    protected String[] input;
 
 
     public static Command matchCmd(String[] input, Game game){
@@ -13,6 +15,7 @@ public abstract class Command {
         if(input[0].equalsIgnoreCase("a") || input[0].equalsIgnoreCase("add")) {
             if(input.length != 4) {
                 System.out.printf(Messages.ERROR, Messages.COMMAND_PARAMETERS_MISSING);
+                System.out.println();
                 return null;
             }
             return new AddCmd(input, game);
@@ -34,6 +37,7 @@ public abstract class Command {
         }
         else {
             System.out.printf(Messages.ERROR, Messages.UNKNOWN_COMMAND);
+            System.out.println();
         }
 
         return null;

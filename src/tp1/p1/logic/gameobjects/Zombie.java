@@ -2,14 +2,11 @@ package tp1.p1.logic.gameobjects;
 
 import tp1.p1.logic.Game;
 
-public class Zombie {
+public class Zombie extends GameObj {
 	
-	public static int resistencia = 3;
+	public static int resistencia = 5;
     public static int damage = 1;
-    
-	private int vida;
-    private int col;
-    private int row;
+    public static int frecuencia = 1;
     
     Game game;
     
@@ -18,34 +15,29 @@ public class Zombie {
 		this.row = row;
 		this.vida = Zombie.resistencia;
 		this.game = game;
+		ciclo = frecuencia;
 	}
 
-    public int getCol() {
-        return col;
-    }
-
-    public int getRow() {
-        return row;
-    }
-
-    public int getVida() {
-        return vida;
-    }
-    
-    public boolean damage(int val) {
-    	if(this.vida > 0) {
-    		this.vida -= val;
-    		return true;
-    	}
-    	return false;
-    }
-
     public boolean move(){
-        this.col--;
+    	if(this.ciclo == 0) {
+    		this.col--;
+    		this.ciclo = frecuencia;
+    	} else this.ciclo--;
+        
         return true;
     }
     
-    public boolean attack(Plants plant) {
-    	return plant.damage(damage);
+    public boolean attack(GameObj plant) {
+    	boolean res = false;
+    	res = plant.damage(damage);
+    	this.ciclo = frecuencia;
+        
+        return res;
+    }
+    
+    @Override
+    public boolean execute() {
+    	if(!game.hurtPlant(col - 1, row, damage)) move();
+    	return true;
     }
 }

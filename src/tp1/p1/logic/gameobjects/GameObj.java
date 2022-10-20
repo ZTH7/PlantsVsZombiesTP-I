@@ -2,12 +2,12 @@ package tp1.p1.logic.gameobjects;
 
 import tp1.p1.logic.Game;
 
-public abstract class Plants {
+public abstract class GameObj {
     //Atributo fijo
-    Game game;
+    protected Game game;
 
     //Atributo cambiable
-    public int ciclo;
+    protected int ciclo;
     protected int vida;
     protected int col;
     protected int row;

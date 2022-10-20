@@ -21,28 +21,22 @@ public class AddCmd extends Command {
     		row = Integer.parseInt(input[3]);
     	}
     	catch(Exception e) {
-    		System.out.println(String.format(Messages.ERROR, Messages.WRONG_PARAMETER));
+    		System.out.println(String.format(Messages.ERROR, Messages.INVALID_POSITION));
     		return false;
     	}
     	
     	if(col < 0 || col >= Game.NUM_COLS || row < 0 || row >= Game.NUM_ROWS) {
     		
-    		System.out.println(String.format(Messages.ERROR, Messages.WRONG_PARAMETER));
+    		System.out.println(String.format(Messages.ERROR, Messages.INVALID_POSITION));
     		return false;
     	}
-    				
-    			
-    					 
-    			
     	
-    	if(game.PList.get(col, row) == null &&
-    			game.SList.get(col, row) == null && 
-    			game.zombiesManager.get(col, row) == null) {
+    	if(!game.hasPlant(col, row) && !game.hasZombie(col, row)) {
     		
     		if(name.equalsIgnoreCase("sunflower") || name.equalsIgnoreCase("s")) {
-    			if(game.soles >= Sunflower.coste) {
-    				game.SList.add(col, row, game);
-    				game.soles -= Sunflower.coste;
+    			if(game.getSoles() >= Sunflower.coste) {
+    				game.addSunflower(col, row, game);
+    				game.addSoles(-Sunflower.coste);
     			}
     			else {
     				System.out.println(Messages.NOT_ENOUGH_COINS);
@@ -51,9 +45,9 @@ public class AddCmd extends Command {
     			
     		}
     		else if(name.equalsIgnoreCase("peashooter") || name.equalsIgnoreCase("p")) {
-    			if(game.soles >= Peashooter.coste) {
-    				game.PList.add(col, row, game);
-    				game.soles -= Peashooter.coste;
+    			if(game.getSoles() >= Peashooter.coste) {
+    				game.addPeashooter(col, row, game);
+    				game.addSoles(-Peashooter.coste);
     			}
     			else {
     				System.out.println(Messages.NOT_ENOUGH_COINS);
@@ -61,15 +55,16 @@ public class AddCmd extends Command {
     			}
     		}
     		else {
-    			System.out.println(String.format(Messages.ERROR, Messages.WRONG_PARAMETER));
+    			System.out.println(String.format(Messages.ERROR, Messages.INVALID_GAME_OBJECT));
     			return false;
     		}
     	}
     	else {
-    		System.out.println(String.format(Messages.ERROR, Messages.WRONG_PARAMETER));
+    		System.out.println(String.format(Messages.ERROR, Messages.INVALID_POSITION));
 			return false;
     	}
     	
+    	game.update();
     	
         return true;
     }
