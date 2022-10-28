@@ -1,17 +1,16 @@
-package tp1.p1.control;
+package tp1.p2.control;
 
-import static tp1.p1.view.Messages.*;
+import static tp1.p2.view.Messages.debug;
+import static tp1.p2.view.Messages.error;
 
 import java.util.Scanner;
 
-import tp1.p1.control.commands.Command;
-import tp1.p1.logic.Game;
-import tp1.p1.view.GamePrinter;
-import tp1.p1.view.Messages;
+import tp1.p2.logic.Game;
+import tp1.p2.view.GamePrinter;
+import tp1.p2.view.Messages;
 
 /**
  * Accepts user input and coordinates the game execution logic.
- *
  */
 public class Controller {
 
@@ -60,23 +59,33 @@ public class Controller {
 	 * Runs the game logic.
 	 */
 	public void run() {
-		// TODO fill your code
-		boolean GameOver = false;
+		boolean refreshDisplay = true;
 
-		String[] input;
-		
-		printGame();
+		while (!game.isFinished() && !game.isPlayerQuits()) {
 
-		while(!GameOver) {
-			input = prompt();
-			Command cmd = Command.matchCmd(input, game);
+			// 1. Draw
+			if (refreshDisplay) {
+				printGame();
+			}
 
-			if(cmd != null) {
-				if(cmd.execute()) {
-					printGame();
-					GameOver = game.checkOver();
+			// 2. User action
+			String[] words = prompt();
+
+			if (words.length == 0) {
+				System.out.println(error(Messages.UNKNOWN_COMMAND));
+			} else {
+				Command command = Command.parse(words);
+				if (command != null) {
+					// 3-4. Game Action & Update
+					refreshDisplay = game.execute(command);
+				} else {
+					refreshDisplay = false;
 				}
 			}
+		}
+
+		if (refreshDisplay) {
+			printGame();
 		}
 
 		printEndMessage();

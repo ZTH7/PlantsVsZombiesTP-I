@@ -1,12 +1,12 @@
-package tp1.p1;
+package tp1.p2;
 
 import java.util.Locale;
 import java.util.Scanner;
 
-import tp1.p1.control.Controller;
-import tp1.p1.control.Level;
-import tp1.p1.logic.Game;
-import tp1.p1.view.Messages;
+import tp1.p2.control.Controller;
+import tp1.p2.control.Level;
+import tp1.p2.logic.Game;
+import tp1.p2.view.Messages;
 
 /**
  * PlantsVsZombies main class.
@@ -57,8 +57,6 @@ public class PlantsVsZombies {
 		}
 
 		System.out.println(Messages.WELCOME);
-		System.out.println(String.format(Messages.CONFIGURED_LEVEL, level.name()));
-		System.out.println(String.format(Messages.CONFIGURED_SEED, seed));
 
 		Game game = new Game(seed, level);
 		Scanner scanner = new Scanner(System.in);
