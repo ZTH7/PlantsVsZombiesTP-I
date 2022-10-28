@@ -1,4 +1,4 @@
-package tp1.p1.control;
+package tp1.p2.control;
 
 /**
  * Represents the allowed levels in the game.
@@ -6,11 +6,10 @@ package tp1.p1.control;
  */
 public enum Level {
 
-	// TODO fill your code
-	EASY(3, 0.1),HARD(5, 0.2),INSANE(10, 0.3);
-	//End
+	EASY(3, 0.1), HARD(5, 0.2), INSANE(10, 0.3);
+
 	private int numberOfZombies;
-	
+
 	private double zombieFrequency;
 
 	private Level(int numberOfZombies, double zombieFrequency) {
@@ -18,7 +17,6 @@ public enum Level {
 		this.zombieFrequency = zombieFrequency;
 	}
 
-	// TODO fill your code
 	public int getNumberOfZombies() {
 		return numberOfZombies;
 	}
@@ -43,11 +41,13 @@ public enum Level {
 	}
 
 	/**
-	 * Returns a string representation of all the levels joined with <code>separator</code>
+	 * Returns a string representation of all the levels joined with
+	 * <code>separator</code>
 	 * 
 	 * @param separator String used as separator
 	 * 
-	 * @return the string resulted from joining all levels using <code>separator</code>
+	 * @return the string resulted from joining all levels using
+	 *         <code>separator</code>
 	 */
 	public static String all(String separator) {
 		StringBuilder buffer = new StringBuilder();
