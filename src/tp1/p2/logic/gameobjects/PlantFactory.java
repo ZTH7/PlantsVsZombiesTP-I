@@ -18,6 +18,9 @@ public class PlantFactory {
 	public static boolean isValidPlant(String plantName) {
 		for (Plant p : AVAILABLE_PLANTS) {
 			// TODO add your code here
+			String shortcut = p.getSymbol();
+			String name = p.getName();
+			if (shortcut.equalsIgnoreCase(plantName) || name.equalsIgnoreCase(plantName)) return true;
 		}
 
 		return false;
@@ -25,6 +28,15 @@ public class PlantFactory {
 
 	public static Plant spawnPlant(String plantName, GameWorld game, int col, int row) {
 		// TODO add your code here
+		for (Plant p : AVAILABLE_PLANTS) {
+			// TODO add your code here
+			String shortcut = p.getSymbol();
+			String name = p.getName();
+			if (shortcut.equalsIgnoreCase(plantName) || name.equalsIgnoreCase(plantName)) {
+				return p.create(game, col, row);
+			}
+		}
+		return null;
 	}
 
 	public static List<Plant> getAvailablePlants() {

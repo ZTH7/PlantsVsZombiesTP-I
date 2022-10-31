@@ -30,10 +30,16 @@ public class ListPlantsCommand extends Command {
 	public ExecutionResult execute(GameWorld game) {
 		System.out.println(Messages.AVAILABLE_PLANTS);
 		// TODO add your code here
-
+		for(Plant plant : PlantFactory.getAvailablePlants()) {
+			System.out.println(plant.getDescription());
+		}
 		System.out.println();
 
 		return new ExecutionResult(false);
 	}
-
+	
+	//TODO
+	public ListPlantsCommand() {
+		super(false);
+	}
 }

@@ -30,7 +30,11 @@ public class ExitCommand extends Command {
 	@Override
 	public ExecutionResult execute(GameWorld game) {
 		game.playerQuits();
-		return new ExecutionResult(false);
+		return new ExecutionResult(true);
 	}
 
+	//TODO
+	public ExitCommand() {
+		super(false);
+	}
 }
