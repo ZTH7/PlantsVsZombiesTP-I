@@ -8,16 +8,14 @@ public class Zombie extends GameObject{
 	
 	public static int resistencia = 5;
     public static int damage = 1;
-    public static int frecuencia = 1;
+    public static int frecuencia = 2;
 
     public Zombie() {}
     
     public Zombie(GameWorld game, int col, int row) {
-		this.col = col;
-		this.row = row;
+    	super(game,col,row);
 		this.life = Zombie.resistencia;
-		this.game = game;
-		ciclo = frecuencia;
+		this.ciclo = Zombie.frecuencia;
 	}
     
 	@Override
@@ -56,7 +54,11 @@ public class Zombie extends GameObject{
 	public void update() {
 		if(isAlive()) {
 			GameItem item = game.getGameObjectInPosition(col - 1, row);
-			if(item == null || !item.receiveZombieAttack(damage)) move();
+			if(item == null || !item.receiveZombieAttack(damage)) {
+				move();
+				GameItem it = game.getGameObjectInPosition(col - 1, row);
+				if(it != null) it.receiveZombieAttack(damage);
+			}
 			if(col < 0) game.zombieWins();			
 		}
 	}

@@ -51,10 +51,10 @@ public class AddPlantCommand extends Command implements Cloneable {
 	@Override
 	public ExecutionResult execute(GameWorld game) {
 		// TODO add your code here
-		if(!PlantFactory.isValidPlant(plantName)) return new ExecutionResult(String.format(Messages.ERROR, Messages.INVALID_GAME_OBJECT));
+		if(!PlantFactory.isValidPlant(plantName)) return new ExecutionResult(error(Messages.INVALID_GAME_OBJECT));
 
 		if(col < 0 || col >= GameWorld.NUM_COLS || row < 0 || row >= GameWorld.NUM_ROWS) {
-    		return new ExecutionResult(String.format(Messages.ERROR, Messages.INVALID_POSITION));
+    		return new ExecutionResult(error(Messages.INVALID_POSITION));
     	}
 		
 		if(game.getGameObjectInPosition(col, row) == null) {
@@ -66,9 +66,9 @@ public class AddPlantCommand extends Command implements Cloneable {
 				}
 				else return new ExecutionResult(Messages.NOT_ENOUGH_COINS);
 			}
-			else return new ExecutionResult(String.format(Messages.ERROR, Messages.INVALID_GAME_OBJECT));
+			else return new ExecutionResult(error(Messages.INVALID_GAME_OBJECT));
 		}
-		else return new ExecutionResult(String.format(Messages.ERROR, Messages.INVALID_POSITION));
+		else return new ExecutionResult(error(Messages.INVALID_POSITION));
 		
 		return new ExecutionResult(true);
 	}
@@ -77,8 +77,7 @@ public class AddPlantCommand extends Command implements Cloneable {
 	public Command create(String[] parameters) {
 		// TODO add your code here
 		if(parameters.length < 3) {
-			System.out.printf(Messages.ERROR, Messages.COMMAND_PARAMETERS_MISSING);
-            System.out.println();
+			System.out.println(error(Messages.COMMAND_PARAMETERS_MISSING));
             return null;
 		}
 		
@@ -88,7 +87,7 @@ public class AddPlantCommand extends Command implements Cloneable {
     		row = Integer.parseInt(parameters[2]);
     	}
     	catch(Exception e) {
-    		System.out.println(String.format(Messages.ERROR, Messages.INVALID_POSITION));
+    		System.out.println(error(Messages.INVALID_POSITION));
     		return null;
     	}
 		

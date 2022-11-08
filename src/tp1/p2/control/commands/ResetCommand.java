@@ -1,6 +1,6 @@
 package tp1.p2.control.commands;
 
-//import static tp1.p2.view.Messages.error;
+import static tp1.p2.view.Messages.error;
 
 import tp1.p2.control.Command;
 import tp1.p2.control.ExecutionResult;
@@ -58,7 +58,7 @@ public class ResetCommand extends Command {
 		
 		Level level = Level.valueOfIgnoreCase(parameters[0]);
 		if (level == null) {
-			System.out.println(Messages.ALLOWED_LEVELS);
+			System.out.println(error(Messages.ALLOWED_LEVELS));
 			return null;
 		}
 		

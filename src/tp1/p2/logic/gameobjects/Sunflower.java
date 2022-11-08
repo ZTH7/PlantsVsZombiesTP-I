@@ -7,17 +7,14 @@ public class Sunflower extends Plant {
 	public static int coste = 20;
     public static int resistencia = 1;
     public static int damage = 0;
-    public static int frecuencia = 3;	
+    public static int frecuencia = 4;	
 
     public Sunflower() {}
     
     public Sunflower(GameWorld game, int col, int row) {
+    	super(game,col,row);
     	this.life = Sunflower.resistencia;
-    	this.col = col;
-    	this.row = row;
-    	this.game = game;
-    	
-    	this.ciclo = Sunflower.frecuencia;
+    	this.ciclo = Sunflower.frecuencia - 1;
     }
     
 	@Override

@@ -4,6 +4,14 @@ import tp1.p2.logic.GameWorld;
 
 public abstract class Plant extends GameObject{
 
+	Plant(){}
+	
+	Plant(GameWorld game, int col, int row) {
+		this.game = game;
+		this.col = col;
+		this.row = row;
+	}
+	
 	@Override
 	protected boolean isAlive() {
 		return life > 0;

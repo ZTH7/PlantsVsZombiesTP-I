@@ -11,7 +11,7 @@ import tp1.p2.view.Messages;
 public class Game implements GameWorld, GameStatus {
 	private int Cycle;
 	private Level level;
-	private Random rand;
+	private long seed = 0;
 	private int SunCoins = INITIAL_SUNCOINS;
 	private boolean zombieWins;
     private boolean playerQuits;
@@ -111,12 +111,13 @@ public class Game implements GameWorld, GameStatus {
 		this.SunCoins = INITIAL_SUNCOINS;
 		
         if(level != null) this.level = level;
-        
-        if(seed != 0) this.rand = new Random(seed);
-        else this.rand = new Random(0);
+        if(seed != 0) this.seed = seed;
         
         this.gameObjContainer = new GameObjectContainer();
-        this.zombiesManager = new ZombiesManager(this, this.level, this.rand);
+        this.zombiesManager = new ZombiesManager(this, this.level, new Random(this.seed));
+
+		System.out.println(String.format(Messages.CONFIGURED_LEVEL, this.level.name()));
+		System.out.println(String.format(Messages.CONFIGURED_SEED, this.seed));
 	}
 
 
@@ -154,6 +155,5 @@ public class Game implements GameWorld, GameStatus {
 	public boolean isZombieWins() {
 		return zombieWins;
 	}
-	
 	
 }

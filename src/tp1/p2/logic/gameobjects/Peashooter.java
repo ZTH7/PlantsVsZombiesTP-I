@@ -13,10 +13,8 @@ public class Peashooter extends Plant {
     public Peashooter() {}
     
     public Peashooter(GameWorld game, int col, int row) {
+    	super(game,col,row);
     	this.life = Peashooter.resistencia;
-    	this.col = col;
-    	this.row = row;
-    	this.game = game;
     	this.ciclo = Sunflower.frecuencia;
     }
 

@@ -51,7 +51,5 @@ public class GameObjectContainer {
 		for(int i = 0; i < gameObjects.size(); i++) {
 			gameObjects.get(i).kill();
 		}
-
-		//for(GameObject obj : gameObjects) obj.kill();
 	}
 }
