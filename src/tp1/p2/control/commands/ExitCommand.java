@@ -33,4 +33,8 @@ public class ExitCommand extends Command {
 		return new ExecutionResult(false);
 	}
 
+	//TODO
+	public ExitCommand() {
+		super(false);
+	}
 }

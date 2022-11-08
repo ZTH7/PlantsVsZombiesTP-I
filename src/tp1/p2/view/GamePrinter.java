@@ -48,6 +48,9 @@ public class GamePrinter {
 
 		/* @formatter:off */
 		// TODO add your code here
+		buffer.append(Messages.NUMBER_OF_CYCLES + " " + game.getCycle() + NEW_LINE);
+		buffer.append(Messages.NUMBER_OF_COINS + " " + game.getSuncoins() + NEW_LINE);
+		buffer.append(Messages.REMAINING_ZOMBIES + " " + game.getRemainingZombies() + NEW_LINE);
 		/* @formatter:on */
 
 		return buffer.toString();
@@ -96,5 +99,13 @@ public class GamePrinter {
 	 */
 	public String endMessage() {
 		// TODO add your code here
+		StringBuilder buffer = new StringBuilder(Messages.GAME_OVER);
+
+		buffer.append(NEW_LINE);
+		if(game.isPlayerQuits()) buffer.append(Messages.PLAYER_QUITS);
+		else if(game.isZombieWins()) buffer.append(Messages.ZOMBIES_WIN);
+		else buffer.append(Messages.PLAYER_WINS);
+
+		return buffer.toString();
 	}
 }

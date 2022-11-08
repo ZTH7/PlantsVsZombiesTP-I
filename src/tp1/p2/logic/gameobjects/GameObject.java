@@ -1,9 +1,10 @@
 package tp1.p2.logic.gameobjects;
 
-import static tp1.p2.view.Messages.status;
+//import static tp1.p2.view.Messages.status;
 
 import tp1.p2.logic.GameItem;
 import tp1.p2.logic.GameWorld;
+import tp1.p2.view.Messages;
 
 /**
  * Base class for game non playable character in the game.
@@ -17,6 +18,9 @@ public abstract class GameObject implements GameItem {
 
 	protected int row;
 
+	protected int life;
+
+	protected int ciclo;
 
 	GameObject() {
 	}
@@ -39,14 +43,20 @@ public abstract class GameObject implements GameItem {
 		return row;
 	}
 	
-	abstract protected boolean isAlive()
+	abstract protected boolean isAlive();
 
 	public String toString() {
 		if (isAlive()) {
 			// TODO add your code here
+			return Messages.status(getSymbol(), life);
 		} else {
 			return "";
 		}
+	}
+	
+	@Override
+	public void kill() {
+		if (!isAlive()) game.removeObj(this);
 	}
 
 	abstract protected String getSymbol();

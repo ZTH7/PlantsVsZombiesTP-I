@@ -13,5 +13,25 @@ public interface GameWorld {
 	public static final int NUM_COLS = 8;
 
 	// TODO add your code here
+	void playerQuits();
+	
+	void zombieWins();
 
+    ExecutionResult update();
+    
+    void addPlant(GameObject plant);
+    
+    void addZombie(GameObject zombie);
+    
+    void removeObj(GameObject obj);
+    
+    GameObject getGameObjectInPosition(int col, int row);
+    
+    void Reset(Level level, long seed);
+    
+    boolean execute(Command command);
+    
+    void reduceZombie();
+    
+    boolean addSoles(int num);
 }

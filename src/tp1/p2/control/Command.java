@@ -33,15 +33,25 @@ public abstract class Command {
 	/* @formatter:on */
 
 	private static Command defaultCommand;
+	
+	//TODO
+	public Command(boolean isdefaultCommand) {
+		defaultCommand = isdefaultCommand ? this : null;
+	}
+	//End
 
 	public static Command parse(String[] commandWords) {
 		if (commandWords.length == 1 && commandWords[0].isEmpty()) {
 			// TODO add your code here
+			return new NoneCommand();
 		}
 
 		for (Command command : AVAILABLE_COMMANDS) {
 			if (command.matchCommand(commandWords[0])) {
 				// TODO add your code here
+				String[] parameters = new String[commandWords.length - 1];
+				for(int i = 1; i < commandWords.length; i++) parameters[i - 1] = commandWords[i];
+				return command.create(parameters);
 			}
 		}
 		System.out.println(error(Messages.UNKNOWN_COMMAND));

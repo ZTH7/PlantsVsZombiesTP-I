@@ -33,8 +33,11 @@ public class HelpCommand extends Command {
 
 		for (Command command : Command.getAvailableCommands()) {
 			/* @formatter:off */
-			buffer.append(Messages.LINE_SEPARATOR)
+			buffer.append(Messages.LINE_SEPARATOR);
 			// TODO add your code here
+			buffer.append(command.getDetails());
+			buffer.append(Messages.HELP_DETAILS_COMMAND_HELP_SEPARATOR);
+			buffer.append(command.getHelp());
 			/* @formatter:on */
 		}
 
@@ -43,4 +46,8 @@ public class HelpCommand extends Command {
 		return new ExecutionResult(false);
 	}
 
+	//TODO
+	public HelpCommand() {
+		super(false);
+	}
 }

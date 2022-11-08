@@ -7,5 +7,13 @@ public interface GameStatus {
 	int getSuncoins();
 
 	// TODO add your code here
-
+	String positionToString(int col, int row);
+	
+	boolean isFinished();
+	
+	boolean isPlayerQuits();
+	
+	boolean isZombieWins();
+	
+	int getRemainingZombies();
 }
