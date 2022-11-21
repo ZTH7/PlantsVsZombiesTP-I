@@ -5,66 +5,62 @@ import static tp1.p2.view.Messages.error;
 import tp1.p2.control.Command;
 import tp1.p2.control.ExecutionResult;
 import tp1.p2.logic.GameWorld;
-import tp1.p2.logic.gameobjects.Plant;
-import tp1.p2.logic.gameobjects.PlantFactory;
+import tp1.p2.logic.gameobjects.Zombie;
+import tp1.p2.logic.gameobjects.ZombieFactory;
 import tp1.p2.view.Messages;
 
-public class AddPlantCommand extends Command implements Cloneable {
+public class AddZombieCommand extends Command {
+
+	private int zombieIdx;
 
 	private int col;
 
 	private int row;
 
-	private String plantName;
+	public AddZombieCommand() {
 
-	private boolean consumeCoins;
-
-	public AddPlantCommand() {
-		this(true);
 	}
 
-	public AddPlantCommand(boolean consumeCoins) {
-		this.consumeCoins = consumeCoins;
+	private AddZombieCommand(int zombieIdx, int col, int row) {
+		this.zombieIdx = zombieIdx;
+		this.col = col;
+		this.row = row;
 	}
 
 	@Override
 	protected String getName() {
-		return Messages.COMMAND_ADD_NAME;
+		return Messages.COMMAND_ADD_ZOMBIE_NAME;
 	}
 
 	@Override
 	protected String getShortcut() {
-		return Messages.COMMAND_ADD_SHORTCUT;
+		return Messages.COMMAND_ADD_ZOMBIE_SHORTCUT;
 	}
 
 	@Override
 	public String getDetails() {
-		return Messages.COMMAND_ADD_DETAILS;
+		return Messages.COMMAND_ADD_ZOMBIE_DETAILS;
 	}
 
 	@Override
 	public String getHelp() {
-		return Messages.COMMAND_ADD_HELP;
+		return Messages.COMMAND_ADD_ZOMBIE_HELP;
 	}
-
 
 	@Override
 	public ExecutionResult execute(GameWorld game) {
 		// TODO add your code here
-		if(!PlantFactory.isValidPlant(plantName)) return new ExecutionResult(error(Messages.INVALID_GAME_OBJECT));
+		if(!ZombieFactory.isValidZombie(zombieIdx)) return new ExecutionResult(error(Messages.INVALID_GAME_OBJECT));
 
-		if(col < 0 || col >= GameWorld.NUM_COLS || row < 0 || row >= GameWorld.NUM_ROWS) {
+		if(col < 0 || col > GameWorld.NUM_COLS || row < 0 || row >= GameWorld.NUM_ROWS) {
     		return new ExecutionResult(error(Messages.INVALID_POSITION));
     	}
 		
 		if(game.getGameItemInPosition(col, row) == null) {
-			Plant plant = PlantFactory.spawnPlant(plantName, game, col, row);
-			if(plant != null) {
-				if(!consumeCoins || game.addSunCoin(-plant.getCost())) {
-					game.addItem(plant);
-					game.update();
-				}
-				else return new ExecutionResult(error(Messages.NOT_ENOUGH_COINS));
+			Zombie zombie = ZombieFactory.spawnZombie(zombieIdx, game, col, row);
+			if(zombie != null) {
+				game.addItem(zombie);
+				game.update();
 			}
 			else return new ExecutionResult(error(Messages.INVALID_GAME_OBJECT));
 		}
@@ -82,7 +78,7 @@ public class AddPlantCommand extends Command implements Cloneable {
 		}
 		
 		try {
-    		plantName = parameters[0];
+			zombieIdx = Integer.parseInt(parameters[0]);
     		col = Integer.parseInt(parameters[1]);
     		row = Integer.parseInt(parameters[2]);
     	}
@@ -95,5 +91,3 @@ public class AddPlantCommand extends Command implements Cloneable {
 	}
 
 }
-
-

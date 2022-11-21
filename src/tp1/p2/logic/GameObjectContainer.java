@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tp1.p2.logic.gameobjects.GameObject;
+import tp1.p2.view.Messages;
 
 public class GameObjectContainer {
 
@@ -13,15 +14,32 @@ public class GameObjectContainer {
 		gameObjects = new ArrayList<>();
 	}
 
-	// TODO add your code here
-	public void add(GameObject obj) {
-		gameObjects.add(obj);
-		obj.onEnter();
+	public String positionToString(int col, int row) {
+		StringBuilder buffer = new StringBuilder();
+		boolean sunPainted = false;
+		boolean sunAboutToPaint = false;
+
+		for (GameObject g : gameObjects) {
+			if(g.isAlive() && g.getCol() == col && g.getRow() == row) {
+				String objectText = g.toString();
+				sunAboutToPaint = objectText.indexOf(Messages.SUN_SYMBOL) >= 0;
+				if (sunAboutToPaint) {
+					if (!sunPainted) {
+						buffer.append(objectText);
+						sunPainted = true;
+					}
+				} else {
+					buffer.append(objectText);
+				}
+			}
+		}
+
+		return buffer.toString();
 	}
-	
-	public boolean remove(int col, int row) {
+
+	public boolean removeDead() {
 		for(GameObject obj : gameObjects) {
-			if(obj.isInPosition(col, row)) {
+			if(!obj.isAlive()) {
 				obj.onExit();
 				gameObjects.remove(obj);
 				return true;
@@ -29,13 +47,13 @@ public class GameObjectContainer {
 		}
 		return false;
 	}
-	
-	public boolean remove(GameObject obj) {
-		obj.onExit();
-		return gameObjects.remove(obj);
+
+	// TODO add your code here
+	public boolean addItem(GameObject item) {
+		return gameObjects.add(item);
 	}
 	
-	public GameObject get(int col, int row) {
+	public GameItem get(int col, int row) {
 		for(GameObject obj : gameObjects) {
 			if(obj.isInPosition(col, row)) return obj;
 		}
@@ -43,13 +61,21 @@ public class GameObjectContainer {
 	}
 	
 	public void update() {
-		int size = gameObjects.size();
-		for(int i = 0; i < size; i++) {
+		for(int i = 0; i < gameObjects.size(); i++) {
 			gameObjects.get(i).update();
 		}
 		
-		for(int i = 0; i < gameObjects.size(); i++) {
-			gameObjects.get(i).kill();
-		}
+		removeDead();
 	}
+	
+	public boolean tryToCatchObject(int col, int row) {
+		for(GameObject obj : gameObjects) {
+			if(obj.catchObject()) {
+				gameObjects.remove(obj);
+				return true;
+			}
+		}
+		return false;
+	}
+	
 }

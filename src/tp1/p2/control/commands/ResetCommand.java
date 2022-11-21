@@ -12,14 +12,12 @@ public class ResetCommand extends Command {
 
 	private Level level;
 
-	private long seed = 0;
+	private long seed;
 
 	public ResetCommand() {
-		super(false);
 	}
 
 	public ResetCommand(Level level, long seed) {
-		super(false);
 		this.level = level;
 		this.seed = seed;
 	}
@@ -47,26 +45,30 @@ public class ResetCommand extends Command {
 	@Override
 	public ExecutionResult execute(GameWorld game){
 		// TODO add your code here
-		game.Reset(level, seed);
+		if(level != null) game.reset(level, seed);
+		else game.reset();
 		return new ExecutionResult(true);
 	}
 
 	@Override
 	public Command create(String[] parameters) {
 		// TODO add your code here
-		if(parameters.length == 0) return new ResetCommand();
-		
-		Level level = Level.valueOfIgnoreCase(parameters[0]);
-		if (level == null) {
-			System.out.println(error(Messages.ALLOWED_LEVELS));
-			return null;
-		}
-		
-		try {
-			if (parameters.length == 2) seed = Long.parseLong(parameters[1]);
-		} catch (NumberFormatException nfe) {
-			System.out.println(String.format(Messages.SEED_NOT_A_NUMBER_ERROR, parameters[1]));
-			return null;
+		if(parameters.length != 0) {
+			Level l = Level.valueOfIgnoreCase(parameters[0]);
+			if (l == null) {
+				System.out.println(error(Messages.ALLOWED_LEVELS));
+				return null;
+			}
+			
+			try {
+				if (parameters.length == 2) {
+					long s = Long.parseLong(parameters[1]);
+					return new ResetCommand(l,s);
+				}
+			} catch (NumberFormatException nfe) {
+				System.out.println(String.format(Messages.SEED_NOT_A_NUMBER_ERROR, parameters[1]));
+				return null;
+			}
 		}
 		
 		return this;

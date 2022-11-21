@@ -1,28 +1,161 @@
 package tp1.p2.logic;
 
+import static tp1.p2.view.Messages.error;
+
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.List;
 import java.util.Random;
 
 import tp1.p2.control.Command;
 import tp1.p2.control.ExecutionResult;
 import tp1.p2.control.Level;
+import tp1.p2.logic.actions.GameAction;
 import tp1.p2.logic.gameobjects.GameObject;
 import tp1.p2.view.Messages;
 
-public class Game implements GameWorld, GameStatus {
-	private int Cycle;
-	private Level level;
-	private long seed = 0;
-	private int SunCoins = INITIAL_SUNCOINS;
-	private boolean zombieWins;
-    private boolean playerQuits;
-	private ZombiesManager zombiesManager;
-	private GameObjectContainer gameObjContainer;
-	public static final int INITIAL_SUNCOINS = 50;
+public class Game implements GameStatus, GameWorld {
 
+	private long seed;
+
+	private Level level;
 	
-	public Game(long seed, Level level){
-		Reset(level, seed);
-    }
+	private int cycle;
+
+	private GameObjectContainer container;
+
+	private Deque<GameAction> actions;
+
+	// TODO add your attributes here
+	public static int Sun = 10;
+	private boolean zombieWins = false;
+    private boolean playerQuits = false;
+	private ZombiesManager zombiesManager;
+	private SunsManager sunsManager;
+	public static final int INITIAL_SUNCOINS = 50;
+	private int SunCoins = INITIAL_SUNCOINS;
+
+	public Game(long seed, Level level) {
+		this.seed = seed;
+		this.level = level;
+		this.container = new GameObjectContainer();
+		reset();
+	}
+
+	/**
+	 * Resets the game.
+	 */
+	@Override
+	public void reset() {
+		reset(this.level, this.seed);
+	}
+
+	/**
+	 * Resets the game with the provided level and seed.
+	 * 
+	 * @param level {@link Level} Used to initialize the game.
+	 * @param seed Random seed Used to initialize the game.
+	 */
+	@Override
+	public void reset(Level level, long seed) {
+		// TODO add your code here
+		this.cycle = 0;
+		this.actions = new ArrayDeque<>();
+		this.SunCoins = INITIAL_SUNCOINS;
+		
+        if(level != null) this.level = level;
+        if(seed != 0) this.seed = seed;
+        
+        Random rand = new Random(this.seed);
+        this.container = new GameObjectContainer();
+        this.zombiesManager = new ZombiesManager(this, this.level, rand);
+        this.sunsManager = new SunsManager(this, rand);
+
+		System.out.println(String.format(Messages.CONFIGURED_LEVEL, this.level.name()));
+		System.out.println(String.format(Messages.CONFIGURED_SEED, this.seed));
+	}
+
+
+	/**
+	 * Executes the game actions and update the game objects in the board.
+	 * 
+	 */
+	@Override
+	public void update() {
+
+		// 1. Execute pending actions
+		executePendingActions();
+
+		// 2. Execute game Actions
+		// TODO add your code here
+		zombiesManager.update();
+		sunsManager.update();
+		// 3. Game object updates
+		// TODO add your code here
+		container.update();
+		// 4. & 5. Remove dead and execute pending actions
+		boolean deadRemoved = true;
+		while (deadRemoved || areTherePendingActions()) {
+			// 4. Remove dead
+			deadRemoved = this.container.removeDead();
+
+			// 5. execute pending actions
+			executePendingActions();
+		}
+
+		this.cycle++;
+
+		// 6. Notify commands that a new cycle started
+		Command.newCycle();
+
+	}
+
+	private void executePendingActions() {
+		while (!this.actions.isEmpty()) {
+			GameAction action = this.actions.removeLast();
+			action.execute(this);
+		}
+	}
+
+	private boolean areTherePendingActions() {
+		return this.actions.size() > 0;
+	}
+
+	// TODO add your code here
+	@Override
+	public void pushAction(GameAction gameAction) {
+	    this.actions.addLast(gameAction);
+	}
+
+	@Override
+	public void addSun() {
+		sunsManager.addSun();
+	}
+
+	@Override
+	public boolean tryToCatchObject(int col, int row) {
+		if (container.tryToCatchObject(col, row)) {
+			addSunCoin(Sun);
+			sunsManager.addCatchedSuns();
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean addItem(GameObject item) {
+		return container.addItem(item);
+	}
+
+	@Override
+	public void zombieWins() {
+		zombieWins = true;
+	}
+
+	@Override
+	public void playerQuits() {
+		playerQuits = true;
+	}
 
 	@Override
 	public void reduceZombie() {
@@ -30,96 +163,12 @@ public class Game implements GameWorld, GameStatus {
 	}
 
 	@Override
-	public int getCycle() {
-		return Cycle;
+	public boolean addSunCoin(int num) {
+		int tmp = SunCoins + num;
+		if(tmp > 0) SunCoins = tmp;
+		else return false;
+		return true;
 	}
-
-
-	@Override
-	public int getSuncoins() {
-		return SunCoins;
-	}
-
-
-	@Override
-	public String positionToString(int col, int row) {
-		GameObject obj = getGameObjectInPosition(col, row);
-		if(obj != null)return obj.toString();
-		else return "";
-	}
-
-
-	@Override
-	public boolean isFinished() {
-		return playerQuits || zombieWins || zombiesManager.checkPlayerWin();
-	}
-
-
-	@Override
-	public boolean isPlayerQuits() {
-		return playerQuits;
-	}
-
-
-	@Override
-	public int getRemainingZombies() {
-		return zombiesManager.getRemainingZombies();
-	}
-
-
-	@Override
-	public void playerQuits() {
-		playerQuits = true;
-	}
-
-
-	@Override
-	public ExecutionResult update() {
-		zombiesManager.update();
-		
-		gameObjContainer.update();
-		
-		Cycle++;
-		
-		return new ExecutionResult(true);
-	}
-
-
-	@Override
-	public void addPlant(GameObject plant) {
-		gameObjContainer.add(plant);
-	}
-
-
-	@Override
-	public void addZombie(GameObject zombie) {
-		gameObjContainer.add(zombie);
-	}
-
-
-	@Override
-	public GameObject getGameObjectInPosition(int col, int row) {
-		return gameObjContainer.get(col, row);
-	}
-
-
-	@Override
-	public void Reset(Level level, long seed) {
-        this.Cycle = 0;
-        this.zombieWins = false;
-		this.playerQuits = false;
-		this.SunCoins = INITIAL_SUNCOINS;
-		
-        if(level != null) this.level = level;
-        if(seed != 0) this.seed = seed;
-        
-        this.gameObjContainer = new GameObjectContainer();
-        this.zombiesManager = new ZombiesManager(this, this.level, new Random(this.seed));
-
-		System.out.println(String.format(Messages.CONFIGURED_LEVEL, this.level.name()));
-		System.out.println(String.format(Messages.CONFIGURED_SEED, this.seed));
-	}
-
 
 	@Override
 	public boolean execute(Command command) {
@@ -128,32 +177,53 @@ public class Game implements GameWorld, GameStatus {
 		return res.draw();
 	}
 
-
 	@Override
-	public void zombieWins() {
-		zombieWins = true;
+	public GameItem getGameItemInPosition(int col, int row) {
+		return container.get(col, row);
 	}
 
-
 	@Override
-	public void removeObj(GameObject obj) {
-		gameObjContainer.remove(obj);
+	public int getCycle() {
+		return cycle;
 	}
 
+	@Override
+	public int getSuncoins() {
+		return SunCoins;
+	}
 
 	@Override
-	public boolean addSoles(int num) {
-		int res = SunCoins + num;
-		if(res < 0) return false;
-		else {
-			SunCoins = res;
-			return true;
-		}
+	public int getRemainingZombies() {
+		return zombiesManager.getRemainingZombies();
+	}
+
+	@Override
+	public String positionToString(int col, int row) {
+		return container.positionToString(col, row);
+	}
+
+	@Override
+	public int getGeneratedSuns() {
+		return sunsManager.getGeneratedSuns();
+	}
+
+	@Override
+	public int getCaughtSuns() {
+		return sunsManager.getCatchedSuns();
+	}
+
+	@Override
+	public boolean isFinished() {
+		return playerQuits || zombieWins || zombiesManager.checkPlayerWin();
+	}
+
+	@Override
+	public boolean isPlayerQuits() {
+		return playerQuits;
 	}
 
 	@Override
 	public boolean isZombieWins() {
 		return zombieWins;
 	}
-	
 }

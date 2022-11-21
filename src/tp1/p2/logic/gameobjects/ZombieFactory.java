@@ -10,12 +10,23 @@ public class ZombieFactory {
 
 	/* @formatter:off */
 	private static final List<Zombie> AVAILABLE_ZOMBIES = Arrays.asList(
-		new Zombie()
+		new Zombie(),
+		new BucketHead(),
+		new Sporty(),
+		new ExplosiveZombie()
 	);
 	/* @formatter:on */
 
-	public static Zombie spawnZombie(int zombieType, GameWorld game, int col, int row) {
-		return AVAILABLE_ZOMBIES.get(zombieType).create(game, col, row);
+	public static boolean isValidZombie(int zombieIdx) {
+		return zombieIdx >= 0 && zombieIdx < AVAILABLE_ZOMBIES.size();
+	}
+
+	public static Zombie spawnZombie(int zombieIdx, GameWorld game, int col, int row) {
+		if (!isValidZombie(zombieIdx)) {
+			return null;
+		}
+		// TODO add your code here
+		return AVAILABLE_ZOMBIES.get(zombieIdx).create(game, col, row);
 	}
 
 	public static List<Zombie> getAvailableZombies() {

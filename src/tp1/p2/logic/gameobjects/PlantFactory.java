@@ -11,7 +11,9 @@ public class PlantFactory {
 	/* @formatter:off */
 	private static final List<Plant> AVAILABLE_PLANTS = Arrays.asList(
 		new Sunflower(),
-		new Peashooter()
+		new Peashooter(),
+		new WallNut(),
+		new CherryBomb()
 	);
 	/* @formatter:on */
 
@@ -39,7 +41,7 @@ public class PlantFactory {
 		return null;
 	}
 
-	public static List<Plant> getAvailablePlants() {
+	public static Iterable<Plant> getAvailablePlants() {
 		return Collections.unmodifiableList(AVAILABLE_PLANTS);
 	}
 
