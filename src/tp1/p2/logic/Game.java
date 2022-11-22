@@ -134,12 +134,13 @@ public class Game implements GameStatus, GameWorld {
 
 	@Override
 	public boolean tryToCatchObject(int col, int row) {
-		if (container.tryToCatchObject(col, row)) {
-			addSunCoin(Sun);
+		boolean res = false;
+		while(container.tryToCatchObject(col, row)) {
 			sunsManager.addCatchedSuns();
-			return true;
+			addSunCoin(10);
+			res = true;
 		}
-		return false;
+		return res;
 	}
 
 	@Override
@@ -165,7 +166,7 @@ public class Game implements GameStatus, GameWorld {
 	@Override
 	public boolean addSunCoin(int num) {
 		int tmp = SunCoins + num;
-		if(tmp > 0) SunCoins = tmp;
+		if(tmp >= 0) SunCoins = tmp;
 		else return false;
 		return true;
 	}
@@ -173,7 +174,7 @@ public class Game implements GameStatus, GameWorld {
 	@Override
 	public boolean execute(Command command) {
 		ExecutionResult res = command.execute(this);
-		if(!res.success()) System.out.println(error(res.errorMessage()));
+		if(!res.success()) System.out.println(res.errorMessage());
 		return res.draw();
 	}
 

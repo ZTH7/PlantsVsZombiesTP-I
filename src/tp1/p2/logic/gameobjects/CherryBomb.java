@@ -17,7 +17,7 @@ public class CherryBomb extends Plant {
     public CherryBomb(GameWorld game, int col, int row) {
     	super(game,col,row);
     	this.life = endurance;
-    	this.ciclo = frecuencia;
+    	this.ciclo = frecuencia + 1;
     }
 
 	@Override
@@ -56,6 +56,6 @@ public class CherryBomb extends Plant {
 
 	@Override
 	public void onExit() {
-		game.pushAction(new ExplosionAction(col, row, damage));
+		game.pushAction(new ExplosionAction(col, row, damage, true));
 	}
 }

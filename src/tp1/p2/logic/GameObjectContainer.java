@@ -55,7 +55,7 @@ public class GameObjectContainer {
 	
 	public GameItem get(int col, int row) {
 		for(GameObject obj : gameObjects) {
-			if(obj.isInPosition(col, row)) return obj;
+			if(!obj.catchObject()&& obj.isInPosition(col, row)) return obj;
 		}
 		return null;
 	}
@@ -70,7 +70,7 @@ public class GameObjectContainer {
 	
 	public boolean tryToCatchObject(int col, int row) {
 		for(GameObject obj : gameObjects) {
-			if(obj.catchObject()) {
+			if(obj.getCol() == col && obj.getRow() == row && obj.catchObject()) {
 				gameObjects.remove(obj);
 				return true;
 			}

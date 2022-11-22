@@ -51,7 +51,8 @@ public class CatchCommand extends Command {
 
 	@Override
 	public ExecutionResult execute(GameWorld game) {
-		if(!caughtSunThisCycle && game.tryToCatchObject(col, row)) {
+		if(!caughtSunThisCycle) {
+			game.tryToCatchObject(col, row);
 			caughtSunThisCycle = true;
 			return new ExecutionResult(true);
 		}

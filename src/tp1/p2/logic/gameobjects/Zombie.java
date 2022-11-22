@@ -11,6 +11,7 @@ public class Zombie extends GameObject{
     public static int damage = 1;
     public static int frecuencia = 2;
     public static int speed = 2;
+    protected int ciclo_ini = speed;
 
     public Zombie() {}
     
@@ -18,6 +19,7 @@ public class Zombie extends GameObject{
     	super(game,col,row);
 		this.life = endurance;
 		this.ciclo = speed;
+		this.ciclo_ini = speed;
 	}
 
 	@Override
@@ -48,26 +50,22 @@ public class Zombie extends GameObject{
 	public String getDescription() {
 		return zombieDescription(Messages.ZOMBIE_NAME, speed, damage, endurance);
 	}
-
-	public boolean move(){
-    	if(this.ciclo == 0) {
-    		this.col--;
-    		this.ciclo = speed - 1;
-    	} else this.ciclo--;
-        
-        return true;
-    }
 	
 	@Override
 	public void update() {
 		if(isAlive()) {
 			GameItem item = game.getGameItemInPosition(col - 1, row);
+			if(item != null && !item.catchObject()) if(this.ciclo == 0) this.ciclo = ciclo_ini;
 			if(item == null || !item.receiveZombieAttack(damage)) {
-				move();
+				if(this.ciclo == 0) {
+					this.col--;
+					this.ciclo = this.ciclo_ini;
+				}
 				GameItem it = game.getGameItemInPosition(col - 1, row);
 				if(it != null) it.receiveZombieAttack(damage);
 			}
-			if(col < 0) game.zombieWins();			
+			if(col < 0) game.zombieWins();
+			this.ciclo--;
 		}
 	}
 
@@ -75,7 +73,7 @@ public class Zombie extends GameObject{
 	public void onEnter() {}
 
 	@Override
-	public void onExit() {}
+	public void onExit() {game.reduceZombie();}
 	
 	public Zombie create(GameWorld game, int col, int row) {
 		return new Zombie(game,col,row);

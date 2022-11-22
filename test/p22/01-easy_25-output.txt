@@ -342,17 +342,17 @@ Caught suns: 0
 Command > 
 [DEBUG] Executing: r 37 HARD
 
-[ERROR] Error: Level must be one of: EASY, HARD, INSANE
+[ERROR] Error: Invalid command
 
 Command > 
 [DEBUG] Executing: r a H
 
-[ERROR] Error: Level must be one of: EASY, HARD, INSANE
+[ERROR] Error: Invalid command
 
 Command > 
 [DEBUG] Executing: r 45 L
 
-[ERROR] Error: Level must be one of: EASY, HARD, INSANE
+[ERROR] Error: Invalid command
 
 Command > 
 [DEBUG] Executing: r HARD 37

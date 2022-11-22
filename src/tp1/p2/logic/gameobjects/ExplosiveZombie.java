@@ -18,6 +18,7 @@ public class ExplosiveZombie extends Zombie {
     	super(game, col, row);
 		this.life = endurance;
 		this.ciclo = speed;
+		this.ciclo_ini = speed;
     }
     
     @Override
@@ -31,18 +32,8 @@ public class ExplosiveZombie extends Zombie {
 	}
 	
 	@Override
-	public boolean move(){
-    	if(this.ciclo == 0) {
-    		this.col--;
-    		this.ciclo = speed - 1;
-    	} else this.ciclo--;
-        
-        return true;
-    }
-	
-	@Override
 	public void onExit() {
-		game.pushAction(new ExplosionAction(col, row, explosive_damage));
+		game.pushAction(new ExplosionAction(col, row, explosive_damage, false));
 		game.reduceZombie();
 	}
 	

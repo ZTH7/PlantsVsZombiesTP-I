@@ -10,11 +10,14 @@ public class ExplosionAction implements GameAction {
 	private int row;
 
 	private int damage;
+	
+	private boolean plant = true;
 
-	public ExplosionAction(int col, int row, int damage) {
+	public ExplosionAction(int col, int row, int damage, boolean plant) {
 		this.col = col;
 		this.row = row;
 		this.damage = damage;
+		this.plant = plant;
 	}
 
 	@Override
@@ -23,7 +26,10 @@ public class ExplosionAction implements GameAction {
 		for(int i = col - 1; i <= col + 1; i++) {
 			for(int j = row - 1; j <= row + 1; j++) {
 				GameItem item = game.getGameItemInPosition(i, j);
-				if(item != null) item.receivePlantAttack(damage);
+				if(item != null) {
+					if(plant) item.receivePlantAttack(damage);
+					else item.receiveZombieAttack(damage);
+				}
 			}
 		}
 	}

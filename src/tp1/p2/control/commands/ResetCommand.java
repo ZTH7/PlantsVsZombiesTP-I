@@ -56,7 +56,7 @@ public class ResetCommand extends Command {
 		if(parameters.length != 0) {
 			Level l = Level.valueOfIgnoreCase(parameters[0]);
 			if (l == null) {
-				System.out.println(error(Messages.ALLOWED_LEVELS));
+				System.out.println(error(Messages.INVALID_COMMAND));
 				return null;
 			}
 			

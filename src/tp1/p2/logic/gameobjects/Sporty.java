@@ -17,6 +17,7 @@ public class Sporty extends Zombie {
     	super(game, col, row);
 		this.life = endurance;
 		this.ciclo = speed;
+		this.ciclo_ini = speed;
     }
     
     @Override
@@ -28,16 +29,6 @@ public class Sporty extends Zombie {
 	public String getDescription() {
 		return zombieDescription(Messages.SPORTY_ZOMBIE_NAME, speed, damage, endurance);
 	}
-	
-	@Override
-	public boolean move(){
-    	if(this.ciclo == 0) {
-    		this.col--;
-    		this.ciclo = speed - 1;
-    	} else this.ciclo--;
-        
-        return true;
-    }
 	
 	@Override
 	public Zombie create(GameWorld game, int col, int row) {
