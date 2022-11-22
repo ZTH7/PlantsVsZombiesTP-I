@@ -38,7 +38,7 @@ public class SunsManager {
 
 	public void update() {
 		if (cooldown == 0) {
-			addSun();
+			if(!sinSol) addSun();
 			cooldown = COOLDOWN_RANDOM_SUN;
 		} else {
 			cooldown--;
