@@ -78,4 +78,13 @@ public class GameObjectContainer {
 		return false;
 	}
 	
+	public boolean isPositionEmpty(int col, int row) {
+		for(GameObject obj : gameObjects) {
+			if(obj.isInPosition(col, row) && !obj.catchObject()) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
 }

@@ -87,7 +87,7 @@ public class AddZombieCommand extends Command {
     		return null;
     	}
 		
-		return this;
+		return new AddZombieCommand(zombieIdx, col, row);
 	}
 
 }

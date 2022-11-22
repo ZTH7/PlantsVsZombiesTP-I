@@ -5,7 +5,6 @@ import tp1.p2.view.Messages;
 
 public class Sun extends GameObject {
     public static int endurance = 10;
-    private int num = 10;
 
     public Sun() {}
     

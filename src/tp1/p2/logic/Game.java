@@ -173,7 +173,7 @@ public class Game implements GameStatus, GameWorld {
 	@Override
 	public boolean execute(Command command) {
 		ExecutionResult res = command.execute(this);
-		if(!res.success()) System.out.println(res.errorMessage());
+		if(!res.success()) System.out.println(error(res.errorMessage()));
 		return res.draw();
 	}
 
@@ -225,5 +225,10 @@ public class Game implements GameStatus, GameWorld {
 	@Override
 	public boolean isZombieWins() {
 		return zombieWins;
+	}
+
+	@Override
+	public boolean isPositionEmpty(int col, int row) {
+		return container.isPositionEmpty(col, row);
 	}
 }

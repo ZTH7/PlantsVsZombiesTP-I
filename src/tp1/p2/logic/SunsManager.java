@@ -17,6 +17,8 @@ public class SunsManager {
 	private int catchedSun = 0;
 	
 	private int generatedSun = 0;
+	
+	private boolean sinSol = false;
 
 	public SunsManager(GameWorld game, Random rand) {
 		this.game = game;
@@ -48,10 +50,15 @@ public class SunsManager {
 	}
 
 	public void addSun() {
-		int col = getRandomInt(GameWorld.NUM_COLS);
-		int row = getRandomInt(GameWorld.NUM_ROWS);
-		game.addItem(new Sun(this.game, col, row));
-		generatedSun++;
+		if(sinSol) {
+			game.addSunCoin(10);
+		}
+		else {
+			int col = getRandomInt(GameWorld.NUM_COLS);
+			int row = getRandomInt(GameWorld.NUM_ROWS);
+			game.addItem(new Sun(this.game, col, row));
+			generatedSun++;
+		}
 	}
 	
 	public void addCatchedSuns() {

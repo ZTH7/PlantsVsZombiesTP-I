@@ -57,7 +57,7 @@ public class AddPlantCommand extends Command implements Cloneable {
     		return new ExecutionResult(error(Messages.INVALID_POSITION));
     	}
 		
-		if(game.getGameItemInPosition(col, row) == null) {
+		if(game.isPositionEmpty(col, row)) {
 			Plant plant = PlantFactory.spawnPlant(plantName, game, col, row);
 			if(plant != null) {
 				if(!consumeCoins || game.addSunCoin(-plant.getCost())) {
