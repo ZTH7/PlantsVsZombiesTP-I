@@ -38,14 +38,17 @@ public class GameObjectContainer {
 	}
 
 	public boolean removeDead() {
-		for(GameObject obj : gameObjects) {
+		boolean ok = false;
+		GameObject obj;
+		for(int i = 0; i < gameObjects.size(); i++) {
+			obj = gameObjects.get(i);
 			if(!obj.isAlive()) {
 				obj.onExit();
 				gameObjects.remove(obj);
-				return true;
+				ok = true;
 			}
 		}
-		return false;
+		return ok;
 	}
 
 	// TODO add your code here
@@ -64,8 +67,6 @@ public class GameObjectContainer {
 		for(int i = 0; i < gameObjects.size(); i++) {
 			gameObjects.get(i).update();
 		}
-		
-		removeDead();
 	}
 	
 	public boolean tryToCatchObject(int col, int row) {
@@ -76,15 +77,6 @@ public class GameObjectContainer {
 			}
 		}
 		return false;
-	}
-	
-	public boolean isPositionEmpty(int col, int row) {
-		for(GameObject obj : gameObjects) {
-			if(obj.isInPosition(col, row) && !obj.catchObject()) {
-				return false;
-			}
-		}
-		return true;
 	}
 	
 }

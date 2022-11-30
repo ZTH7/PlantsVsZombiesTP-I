@@ -48,14 +48,15 @@ public class CherryBomb extends Plant {
 	@Override
 	public void update() {
 		this.ciclo--;
-		if(ciclo == 0) this.life = 0;
+		if(ciclo == 0) {
+			this.life = 0;
+			game.pushAction(new ExplosionAction(col, row, damage, true));
+		}
 	}
 
 	@Override
 	public void onEnter() {}
 
 	@Override
-	public void onExit() {
-		game.pushAction(new ExplosionAction(col, row, damage, true));
-	}
+	public void onExit() {}
 }

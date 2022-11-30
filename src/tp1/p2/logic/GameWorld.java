@@ -39,7 +39,5 @@ public interface GameWorld {
 	GameItem getGameItemInPosition(int col, int row);
 	
 	void pushAction(GameAction gameAction);
-	
-	boolean isPositionEmpty(int col, int row);
 	//End
 }

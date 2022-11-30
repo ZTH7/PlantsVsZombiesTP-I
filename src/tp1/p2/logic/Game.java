@@ -227,9 +227,5 @@ public class Game implements GameStatus, GameWorld {
 	public boolean isZombieWins() {
 		return zombieWins;
 	}
-
-	@Override
-	public boolean isPositionEmpty(int col, int row) {
-		return container.isPositionEmpty(col, row);
-	}
+	
 }
