@@ -37,9 +37,5 @@ public class ListPlantsCommand extends Command {
 
 		return new ExecutionResult(false);
 	}
-	
-	//TODO
-	public ListPlantsCommand() {
-		super(false);
-	}
+
 }

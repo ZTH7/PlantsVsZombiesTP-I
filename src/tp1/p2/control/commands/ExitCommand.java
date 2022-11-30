@@ -29,12 +29,9 @@ public class ExitCommand extends Command {
 
 	@Override
 	public ExecutionResult execute(GameWorld game) {
+		// TODO add your code here
 		game.playerQuits();
 		return new ExecutionResult(false);
 	}
 
-	//TODO
-	public ExitCommand() {
-		super(false);
-	}
 }

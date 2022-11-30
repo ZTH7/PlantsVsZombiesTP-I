@@ -68,13 +68,12 @@ public class ZombiesManager {
 		if (canAdd) {
 			// TODO add your code here
 			Zombie zombie = ZombieFactory.spawnZombie(zombieType, game, GameWorld.NUM_COLS, row);
-			game.addZombie(zombie);
+			game.addItem(zombie);
 			remainingZombies--;
 			zombiesAlived++;
 		}
 		return canAdd;
 	}
-
 
 	// TODO add your code here
 	public int getRemainingZombies() {
@@ -82,13 +81,13 @@ public class ZombiesManager {
 	}
 
 	private boolean isPositionEmpty(int col, int row) {
-		return game.getGameObjectInPosition(col, row) == null;
+		return game.getGameItemInPosition(col, row) == null;
 	}
 	
 	public boolean checkPlayerWin() {
 		return remainingZombies <= 0 && zombiesAlived <= 0;
 	}
-
+	
 	public void reduceZombie() {
 		zombiesAlived--;
 	}

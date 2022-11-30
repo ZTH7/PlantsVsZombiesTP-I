@@ -22,7 +22,7 @@ public class GamePrinter {
 
 	private static final String EXTENDED_MARGIN = repeat(SPACE, MARGIN_SIZE+2);
 
-	private static final int CELL_SIZE = 8;
+	private static final int CELL_SIZE = 8+6;
 
 	private static final String CELL_BORDER = repeat(CELL_BORDER_CHAR, CELL_SIZE);
 
@@ -51,6 +51,8 @@ public class GamePrinter {
 		buffer.append(Messages.NUMBER_OF_CYCLES + " " + game.getCycle() + NEW_LINE);
 		buffer.append(Messages.NUMBER_OF_COINS + " " + game.getSuncoins() + NEW_LINE);
 		buffer.append(Messages.REMAINING_ZOMBIES + " " + game.getRemainingZombies() + NEW_LINE);
+		buffer.append(Messages.GENERATED_SUNS + " " + game.getGeneratedSuns() + NEW_LINE);
+		buffer.append(Messages.CAUGHT_SUNS + " " + game.getCaughtSuns() + NEW_LINE);
 		/* @formatter:on */
 
 		return buffer.toString();

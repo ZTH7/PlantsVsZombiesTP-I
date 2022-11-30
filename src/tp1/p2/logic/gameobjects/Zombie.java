@@ -1,23 +1,27 @@
 package tp1.p2.logic.gameobjects;
 
+import static tp1.p2.view.Messages.zombieDescription;
+
 import tp1.p2.logic.GameItem;
 import tp1.p2.logic.GameWorld;
 import tp1.p2.view.Messages;
 
 public class Zombie extends GameObject{
-	
-	public static int resistencia = 5;
+	public static int endurance = 5;
     public static int damage = 1;
     public static int frecuencia = 2;
+    public static int speed = 2;
+    protected int ciclo_ini = speed;
 
     public Zombie() {}
     
     public Zombie(GameWorld game, int col, int row) {
     	super(game,col,row);
-		this.life = Zombie.resistencia;
-		this.ciclo = Zombie.frecuencia;
+		this.life = endurance;
+		this.ciclo = speed;
+		this.ciclo_ini = speed;
 	}
-    
+
 	@Override
 	public boolean receiveZombieAttack(int damage) {
 		return false;
@@ -33,15 +37,7 @@ public class Zombie extends GameObject{
 	}
 
 	@Override
-	public void kill() {
-		if (!isAlive()) {
-			game.removeObj(this);
-			game.reduceZombie();
-		}
-	}
-
-	@Override
-	protected boolean isAlive() {
+	public boolean isAlive() {
 		return life > 0;
 	}
 
@@ -51,45 +47,34 @@ public class Zombie extends GameObject{
 	}
 
 	@Override
-	public void update() {
-		if(isAlive()) {
-			GameItem item = game.getGameObjectInPosition(col - 1, row);
-			if(item == null || !item.receiveZombieAttack(damage)) {
-				move();
-				GameItem it = game.getGameObjectInPosition(col - 1, row);
-				if(it != null) it.receiveZombieAttack(damage);
-			}
-			if(col < 0) game.zombieWins();			
-		}
+	public String getDescription() {
+		return zombieDescription(Messages.ZOMBIE_NAME, speed, damage, endurance);
 	}
 	
-	public boolean move(){
-    	if(this.ciclo == 0) {
-    		this.col--;
-    		this.ciclo = frecuencia;
-    	} else this.ciclo--;
-        
-        return true;
-    }
-
 	@Override
-	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
+	public void update() {
+		if(isAlive()) {
+			GameItem item = game.getGameItemInPosition(col - 1, row);
+			if(item != null && !item.catchObject()) if(this.ciclo == 0) this.ciclo = ciclo_ini;
+			if(item == null || !item.receiveZombieAttack(damage)) {
+				if(this.ciclo == 0) {
+					this.col--;
+					this.ciclo = this.ciclo_ini;
+				}
+				GameItem it = game.getGameItemInPosition(col - 1, row);
+				if(it != null) it.receiveZombieAttack(damage);
+			}
+			if(col < 0) game.zombieWins();
+			this.ciclo--;
+		}
 	}
 
 	@Override
-	public void onEnter() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void onEnter() {}
 
 	@Override
-	public void onExit() {
-		// TODO Auto-generated method stub
-		
-	}
-
+	public void onExit() {game.reduceZombie();}
+	
 	public Zombie create(GameWorld game, int col, int row) {
 		return new Zombie(game,col,row);
 	}

@@ -1,4 +1,4 @@
-package tp1.p2;
+package tp1.p2.pruebas.parte2;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import tp1.p2.PlantsVsZombies;
 
-public class PlantsVsZombiesTests {
+public class PlantsVsZombiesTestsSinSoles {
 
 	private static boolean compareOutput(Path expectedPath, Path actualPath) throws FileNotFoundException, IOException {
 		boolean same = true;
@@ -71,32 +71,37 @@ public class PlantsVsZombiesTests {
 
 	@Test
 	public void test00() {
-		parameterizedTest(Paths.get("test/p2/00-easy_25-input.txt"), Paths.get("test/p2/00-easy_25-expected.txt"),
-				Paths.get("test/p2/00-easy_25-output.txt"), new String[] { "EASY", "25" });
+		parameterizedTest(Paths.get("test/p22/sinsoles/00-easy_25-input.txt"), Paths.get("test/p22/sinsoles/00-easy_25-expected.txt"),
+				Paths.get("test/p22/sinsoles/00-easy_25-output.txt"), new String[] { "EASY", "25" });
 	}
 
 	@Test
 	public void test01() {
-		parameterizedTest(Paths.get("test/p2/01-easy_25-input.txt"), Paths.get("test/p2/01-easy_25-expected.txt"),
-				Paths.get("test/p2/01-easy_25-output.txt"), new String[] { "EASY", "25" });
+		parameterizedTest(Paths.get("test/p22/sinsoles/01-easy_25-input.txt"), Paths.get("test/p22/sinsoles/01-easy_25-expected.txt"),
+				Paths.get("test/p22/sinsoles/01-easy_25-output.txt"), new String[] { "EASY", "25" });
 	}
 
 	@Test
 	public void test02() {
-		parameterizedTest(Paths.get("test/p2/02-easy_25-input.txt"), Paths.get("test/p2/02-easy_25-expected.txt"),
-				Paths.get("test/p2/02-easy_25-output.txt"), new String[] { "EASY", "25" });
+		parameterizedTest(Paths.get("test/p22/sinsoles/02-easy_25-input.txt"), Paths.get("test/p22/sinsoles/02-easy_25-expected.txt"),
+				Paths.get("test/p22/sinsoles/02-easy_25-output.txt"), new String[] { "EASY", "25" });
 	}
 
 	@Test
 	public void test03() {
-		parameterizedTest(Paths.get("test/p2/03-hard_17-input.txt"), Paths.get("test/p2/03-hard_17-expected.txt"),
-				Paths.get("test/p2/03-hard_17-output.txt"), new String[] { "HARD", "17" });
+		parameterizedTest(Paths.get("test/p22/sinsoles/03-hard_17-input.txt"), Paths.get("test/p22/sinsoles/03-hard_17-expected.txt"),
+				Paths.get("test/p22/sinsoles/03-hard_17-output.txt"), new String[] { "HARD", "17" });
 	}
 
 	@Test
 	public void test04() {
-		parameterizedTest(Paths.get("test/p2/04-insane_360-input.txt"), Paths.get("test/p2/04-insane_360-expected.txt"),
-				Paths.get("test/p2/04-insane_360-output.txt"), new String[] { "INSANE", "360" });
+		parameterizedTest(Paths.get("test/p22/sinsoles/04-insane_360-input.txt"), Paths.get("test/p22/sinsoles/04-insane_360-expected.txt"),
+				Paths.get("test/p22/sinsoles/04-insane_360-output.txt"), new String[] { "INSANE", "360" });
 	}
 
+	@Test
+	public void test05() {
+		parameterizedTest(Paths.get("test/p22/sinsoles/05-easy_123-input.txt"), Paths.get("test/p22/sinsoles/05-easy_123-expected.txt"),
+				Paths.get("test/p22/sinsoles/05-easy_123-output.txt"), new String[] { "EASY", "123" });
+	}
 }

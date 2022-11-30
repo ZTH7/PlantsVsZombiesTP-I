@@ -24,7 +24,6 @@ public class AddPlantCommand extends Command implements Cloneable {
 	}
 
 	public AddPlantCommand(boolean consumeCoins) {
-		super(false);
 		this.consumeCoins = consumeCoins;
 	}
 
@@ -48,6 +47,7 @@ public class AddPlantCommand extends Command implements Cloneable {
 		return Messages.COMMAND_ADD_HELP;
 	}
 
+
 	@Override
 	public ExecutionResult execute(GameWorld game) {
 		// TODO add your code here
@@ -57,14 +57,14 @@ public class AddPlantCommand extends Command implements Cloneable {
     		return new ExecutionResult(error(Messages.INVALID_POSITION));
     	}
 		
-		if(game.getGameObjectInPosition(col, row) == null) {
+		if(game.getGameItemInPosition(col, row) == null) {
 			Plant plant = PlantFactory.spawnPlant(plantName, game, col, row);
 			if(plant != null) {
-				if(consumeCoins && game.addSoles(-plant.getCost())) {
-					game.addPlant(plant);
+				if(!consumeCoins || game.addSunCoin(-plant.getCost())) {
+					game.addItem(plant);
 					game.update();
 				}
-				else return new ExecutionResult(Messages.NOT_ENOUGH_COINS);
+				else return new ExecutionResult(error(Messages.NOT_ENOUGH_COINS));
 			}
 			else return new ExecutionResult(error(Messages.INVALID_GAME_OBJECT));
 		}
@@ -95,3 +95,5 @@ public class AddPlantCommand extends Command implements Cloneable {
 	}
 
 }
+
+
