@@ -34,7 +34,7 @@ public class ExplosiveZombie extends Zombie {
 	@Override
 	public void onExit() {
 		game.pushAction(new ExplosionAction(col, row, explosive_damage, false));
-		game.reduceZombie();
+		game.reduceZombie(dieCause);
 	}
 	
 	@Override

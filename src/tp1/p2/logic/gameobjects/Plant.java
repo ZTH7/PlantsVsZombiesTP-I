@@ -11,8 +11,9 @@ public abstract class Plant extends GameObject{
 	}
 
 	@Override
-	public boolean receiveZombieAttack(int damage) {
+	public boolean receiveZombieAttack(int damage, Option option) {
 		if(isAlive()) {
+			this.dieCause = option;
 			life -= damage;
 			return true;
 		}
@@ -20,7 +21,7 @@ public abstract class Plant extends GameObject{
 	}
 
 	@Override
-	public boolean receivePlantAttack(int damage) {
+	public boolean receivePlantAttack(int damage, Option option) {
 		return false;
 	}
 

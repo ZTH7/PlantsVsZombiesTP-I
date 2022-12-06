@@ -1,9 +1,8 @@
 package tp1.p2.control.commands;
 
-import static tp1.p2.view.Messages.error;
-
 import tp1.p2.control.Command;
-import tp1.p2.control.ExecutionResult;
+import tp1.p2.control.exceptions.CommandParseException;
+import tp1.p2.control.exceptions.GameException;
 import tp1.p2.logic.GameWorld;
 import tp1.p2.view.Messages;
 
@@ -50,20 +49,20 @@ public class CatchCommand extends Command {
 	}
 
 	@Override
-	public ExecutionResult execute(GameWorld game) {
+	public boolean execute(GameWorld game) throws GameException {
 		if(!caughtSunThisCycle) {
 			game.tryToCatchObject(col, row);
 			caughtSunThisCycle = true;
-			return new ExecutionResult(true);
+			return true;
 		}
-		return new ExecutionResult(error(Messages.SUN_ALREADY_CAUGHT));
+		throw new GameException(Messages.SUN_ALREADY_CAUGHT);
 	}
 
 	@Override
-	public Command create(String[] parameters) {
+	public Command create(String[] parameters) throws GameException{
 		if(parameters.length < 2) {
-			System.out.println(error(Messages.COMMAND_PARAMETERS_MISSING));
-            return null;
+			throw new CommandParseException(Messages.COMMAND_PARAMETERS_MISSING);
+            //return null;
 		}
 		
 		try {
@@ -71,8 +70,8 @@ public class CatchCommand extends Command {
     		row = Integer.parseInt(parameters[1]);
     	}
     	catch(Exception e) {
-    		System.out.println(error(Messages.INVALID_POSITION));
-    		return null;
+    		throw new CommandParseException(String.format(Messages.INVALID_POSITION, parameters[0], parameters[1]));
+    		//return null;
     	}
 		
 		return new CatchCommand(col, row);

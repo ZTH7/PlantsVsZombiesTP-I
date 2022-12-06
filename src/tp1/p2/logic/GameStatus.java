@@ -53,4 +53,11 @@ public interface GameStatus {
 	boolean isPlayerQuits();
 	
 	boolean isZombieWins();
+	
+	int getScore();
+	
+	public int getRecordScore();
+	
+	String getLevelname();
+	
 }

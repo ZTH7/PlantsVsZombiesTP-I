@@ -1,21 +1,12 @@
 package tp1.p2.control;
 
-import static tp1.p2.view.Messages.error;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import tp1.p2.control.commands.AddPlantCheatCommand;
-import tp1.p2.control.commands.AddPlantCommand;
-import tp1.p2.control.commands.AddZombieCommand;
-import tp1.p2.control.commands.CatchCommand;
-import tp1.p2.control.commands.ExitCommand;
-import tp1.p2.control.commands.HelpCommand;
-import tp1.p2.control.commands.ListPlantsCommand;
-import tp1.p2.control.commands.ListZombiesCommand;
-import tp1.p2.control.commands.NoneCommand;
-import tp1.p2.control.commands.ResetCommand;
+import tp1.p2.control.commands.*;
+import tp1.p2.control.exceptions.CommandParseException;
+import tp1.p2.control.exceptions.GameException;
 import tp1.p2.logic.GameWorld;
 import tp1.p2.view.Messages;
 
@@ -36,13 +27,14 @@ public abstract class Command {
 		new ListZombiesCommand(),
 		new AddZombieCommand(),
 		new AddPlantCheatCommand(),
-		new CatchCommand()
+		new CatchCommand(),
+		new ShowRecordCommand()
 	);
 	/* @formatter:on */
 
 	private static Command defaultCommand;
 
-	public static Command parse(String[] commandWords) {
+	public static Command parse(String[] commandWords) throws GameException {
 		if (commandWords.length == 1 && commandWords[0].isEmpty()) {
 			// TODO add your code here
 			return new NoneCommand();
@@ -56,8 +48,7 @@ public abstract class Command {
 				return command.create(parameters);
 			}
 		}
-		System.out.println(error(Messages.UNKNOWN_COMMAND));
-		return null;
+		throw new CommandParseException(Messages.UNKNOWN_COMMAND);
 	}
 
 	public static Iterable<Command> getAvailableCommands() {
@@ -107,12 +98,11 @@ public abstract class Command {
 	 * 
 	 * @return {@code true} if game board must be printed {@code false} otherwise.
 	 */
-	public abstract ExecutionResult execute(GameWorld game);
+	public abstract boolean execute(GameWorld game) throws GameException;
 
-	public Command create(String[] parameters) {
+	public Command create(String[] parameters) throws GameException {
 		if (parameters.length != 0) {
-			System.out.println(error(Messages.COMMAND_INCORRECT_PARAMETER_NUMBER));
-			return null;
+			throw new CommandParseException(Messages.COMMAND_INCORRECT_PARAMETER_NUMBER);
 		}
 		return this;
 	}

@@ -64,8 +64,10 @@ public class GameObjectContainer {
 	}
 	
 	public void update() {
+		GameObject obj;
 		for(int i = 0; i < gameObjects.size(); i++) {
-			gameObjects.get(i).update();
+			obj = gameObjects.get(i);
+			if(obj.isAlive()) obj.update();
 		}
 	}
 	
