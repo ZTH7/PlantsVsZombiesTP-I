@@ -4,6 +4,11 @@ import tp1.p2.view.Messages;
 
 public class InvalidGameObjectException extends CommandExecuteException{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public InvalidGameObjectException() {
 		super(Messages.INVALID_GAME_OBJECT);
 	}

@@ -4,6 +4,11 @@ import tp1.p2.view.Messages;
 
 public class InvalidPositionException extends CommandExecuteException{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public InvalidPositionException(int col, int row) {
 		super(String.format(Messages.INVALID_POSITION, Integer.toString(col) ,Integer.toString(row)));
 	}

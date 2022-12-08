@@ -4,6 +4,11 @@ import tp1.p2.view.Messages;
 
 public class NotCatchablePositionException extends InvalidPositionException {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public NotCatchablePositionException() {
 		super(Messages.NO_CATCHABLE_IN_POSITION);
 	}

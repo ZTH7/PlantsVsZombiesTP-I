@@ -4,7 +4,6 @@ import static tp1.p2.view.Messages.status;
 
 import tp1.p2.logic.GameItem;
 import tp1.p2.logic.GameWorld;
-import tp1.p2.logic.GameItem.Option;
 
 /**
  * Base class for game non playable character in the game.

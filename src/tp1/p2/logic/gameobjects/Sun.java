@@ -1,7 +1,6 @@
 package tp1.p2.logic.gameobjects;
 
 import tp1.p2.logic.GameWorld;
-import tp1.p2.logic.GameItem.Option;
 import tp1.p2.view.Messages;
 
 public class Sun extends GameObject {
