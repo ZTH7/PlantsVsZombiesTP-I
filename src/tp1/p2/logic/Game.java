@@ -10,7 +10,6 @@ import tp1.p2.control.Level;
 import tp1.p2.logic.GameItem.Option;
 import tp1.p2.logic.actions.GameAction;
 import tp1.p2.logic.gameobjects.GameObject;
-import tp1.p2.view.Messages;
 
 public class Game implements GameStatus, GameWorld {
 
@@ -74,9 +73,6 @@ public class Game implements GameStatus, GameWorld {
         this.container = new GameObjectContainer();
         this.zombiesManager = new ZombiesManager(this, this.level, rand);
         this.sunsManager = new SunsManager(this, rand);
-
-		System.out.println(String.format(Messages.CONFIGURED_LEVEL, this.level.name()));
-		System.out.println(String.format(Messages.CONFIGURED_SEED, this.seed));
 	}
 
 
@@ -200,6 +196,11 @@ public class Game implements GameStatus, GameWorld {
 	@Override
 	public int getScore() {
 		return score;
+	}
+
+	@Override
+	public long getSeed() {
+		return seed;
 	}
 
 	@Override

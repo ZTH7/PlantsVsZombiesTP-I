@@ -51,6 +51,8 @@ public interface GameWorld {
 	
 	int getRecordScore();
 	
+	long getSeed();
+	
 	String getLevelname();
 	//End
 }

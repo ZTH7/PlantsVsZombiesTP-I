@@ -44,8 +44,13 @@ public class ResetCommand extends Command {
 	@Override
 	public boolean execute(GameWorld game) throws GameException {
 		// TODO add your code here
+		
 		if(level != null) game.reset(level, seed);
 		else game.reset();
+
+		System.out.println(String.format(Messages.CONFIGURED_LEVEL, game.getLevelname()));
+		System.out.println(String.format(Messages.CONFIGURED_SEED, game.getSeed()));
+		
 		return true;
 	}
 
