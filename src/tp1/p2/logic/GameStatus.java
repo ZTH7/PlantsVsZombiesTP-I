@@ -1,5 +1,7 @@
 package tp1.p2.logic;
 
+import tp1.p2.control.exceptions.GameException;
+
 public interface GameStatus {
 
 	/**
@@ -58,6 +60,6 @@ public interface GameStatus {
 	
 	public int getRecordScore();
 	
-	String getLevelname();
+	void saveRecord() throws GameException;
 	
 }

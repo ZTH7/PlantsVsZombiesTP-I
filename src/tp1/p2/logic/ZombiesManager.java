@@ -63,7 +63,7 @@ public class ZombiesManager {
 	}
 
 	public boolean addZombie(int row) throws GameException {
-		boolean canAdd = getRemainingZombies() > 0 && shouldAddZombie() && isPositionEmpty(GameWorld.NUM_COLS, row);
+		boolean canAdd = getRemainingZombies() > 0 && shouldAddZombie() && !isObjectInPosition(GameWorld.NUM_COLS, row);
 		int zombieType = randomZombieType();
 
 		if (canAdd) {
@@ -81,8 +81,8 @@ public class ZombiesManager {
 		return remainingZombies;
 	}
 
-	private boolean isPositionEmpty(int col, int row) {
-		return game.getGameItemInPosition(col, row) == null;
+	private boolean isObjectInPosition(int col, int row) {
+		return game.getGameItemInPosition(col, row) != null;
 	}
 	
 	public boolean checkPlayerWin() {

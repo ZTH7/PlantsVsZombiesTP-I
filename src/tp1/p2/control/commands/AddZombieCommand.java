@@ -54,15 +54,13 @@ public class AddZombieCommand extends Command {
 			throw new InvalidPositionException(col, row);
     	}
 		
-		if(game.getGameItemInPosition(col, row) == null) {
-			Zombie zombie = ZombieFactory.spawnZombie(zombieIdx, game, col, row);
-			if(zombie != null) {
-				game.addItem(zombie);
-				game.update();
-			}
-			else throw new InvalidGameObjectException();
+		game.checkValidZombiePosition(col, row);
+		Zombie zombie = ZombieFactory.spawnZombie(zombieIdx, game, col, row);
+		if(zombie != null) {
+			game.addItem(zombie);
+			game.update();
 		}
-		else throw new InvalidPositionException(col, row);
+		else throw new InvalidGameObjectException();
 		
 		return true;
 	}

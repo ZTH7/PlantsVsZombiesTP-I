@@ -6,6 +6,8 @@ import java.util.Random;
 
 import tp1.p2.control.Command;
 import tp1.p2.control.exceptions.GameException;
+import tp1.p2.control.exceptions.InvalidPositionException;
+import tp1.p2.control.exceptions.NotEnoughCoinsException;
 import tp1.p2.control.Level;
 import tp1.p2.logic.GameItem.Option;
 import tp1.p2.logic.actions.GameAction;
@@ -20,8 +22,6 @@ public class Game implements GameStatus, GameWorld {
 	private int cycle;
 	
 	private int score;
-	
-	private int record_score;
 
 	private GameObjectContainer container;
 
@@ -35,6 +35,7 @@ public class Game implements GameStatus, GameWorld {
 	private SunsManager sunsManager;
 	public static final int INITIAL_SUNCOINS = 50;
 	private int SunCoins = INITIAL_SUNCOINS;
+	private Record record;
 
 	public Game(long seed, Level level) throws GameException {
 		this.seed = seed;
@@ -69,7 +70,7 @@ public class Game implements GameStatus, GameWorld {
         if(seed != 0) this.seed = seed;
         
         Random rand = new Random(this.seed);
-        this.record_score = Record.ReadRecord(this.level);
+        this.record = new Record(level);
         this.container = new GameObjectContainer();
         this.zombiesManager = new ZombiesManager(this, this.level, rand);
         this.sunsManager = new SunsManager(this, rand);
@@ -205,7 +206,7 @@ public class Game implements GameStatus, GameWorld {
 
 	@Override
 	public int getRecordScore() {
-		return record_score;
+		return record.getRecordScore();
 	}
 
 	@Override
@@ -246,6 +247,26 @@ public class Game implements GameStatus, GameWorld {
 	@Override
 	public boolean isZombieWins() {
 		return zombieWins;
+	}
+
+	@Override
+	public void saveRecord() throws GameException {
+		record.save(score);
+	}
+
+	@Override
+	public void tryToBuy(int cost) throws GameException {
+		if(!addSunCoin(-cost)) throw new NotEnoughCoinsException();
+	}
+
+	@Override
+	public void checkValidPlantPosition(int col, int row) throws GameException {
+		if(getGameItemInPosition(col, row) != null) throw new InvalidPositionException(col, row);
+	}
+
+	@Override
+	public void checkValidZombiePosition(int col, int row) throws GameException {
+		if(getGameItemInPosition(col, row) != null) throw new InvalidPositionException(col, row);
 	}
 	
 }

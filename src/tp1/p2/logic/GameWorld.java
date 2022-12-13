@@ -19,11 +19,11 @@ public interface GameWorld {
 
 	void reset(Level level, long seed) throws GameException;
 	
-	//void tryToBuy(int cost) throws GameException;
+	void tryToBuy(int cost) throws GameException;
 	
-	//void checkValidPlantPosition(int col, int row) throws GameException;
+	void checkValidPlantPosition(int col, int row) throws GameException;
 	
-	//void checkValidZombiePosition(int col, int row) throws GameException;
+	void checkValidZombiePosition(int col, int row) throws GameException;
 
 	void tryToCatchObject(int col, int row) throws GameException;
 	
@@ -32,8 +32,6 @@ public interface GameWorld {
 	void addSun();
 	
 	boolean addItem(GameObject item);
-
-	// TODO add your code here
 	
 	void zombieWins();
 	
@@ -54,5 +52,7 @@ public interface GameWorld {
 	long getSeed();
 	
 	String getLevelname();
+	
+	void saveRecord() throws GameException;
 	//End
 }

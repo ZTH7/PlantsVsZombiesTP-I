@@ -7,10 +7,12 @@ import tp1.p2.control.Level;
 import tp1.p2.control.exceptions.RecordException;
 
 public class Record {
-	private static String[] record;
+	private Level level;
+	private String[] record;
+	private int record_score = 0;
 	
-	public static int ReadRecord(Level level) throws RecordException{
-		int res = 0;
+	public Record(Level level) throws RecordException {
+		this.level = level;
 		try {
 			FileReader reader = new FileReader("record.txt");
 	 
@@ -22,7 +24,7 @@ public class Record {
 	        
 	        try {
 		        for(String str : record) {
-		        	if(level.name().equalsIgnoreCase(str.split(":")[0])) res = Integer.parseInt(str.split(":")[1]);
+		        	if(level.name().equalsIgnoreCase(str.split(":")[0])) record_score = Integer.parseInt(str.split(":")[1]);
 		        }
 	        } catch(NumberFormatException nfe) {
 	        	throw new RecordException(nfe);
@@ -33,24 +35,27 @@ public class Record {
 		} catch(IOException e) {
 			throw new RecordException(e);
 		}
-		return res;
 	}
 	
-	public static void WriteRecord(String level, int score) throws RecordException{
+	public void save(int score) throws RecordException{
 		try {
 		    FileWriter writer = new FileWriter("record.txt");
 	        boolean found = false;
 	        for(String str : record) {
-			    if(!found && level.equalsIgnoreCase(str.split(":")[0])) {
+			    if(!found && level.name().equalsIgnoreCase(str.split(":")[0])) {
 			    	found = true;
-			    	writer.append(level + ":" + score + "\n");
+			    	writer.append(level.name() + ":" + score + "\n");
 			    }
 			    else writer.append(str + "\n");
 	        }
-	        if(!found) writer.append(level + ":" + score + "\n");
+	        if(!found) writer.append(level.name() + ":" + score + "\n");
 		    writer.close();
 		}catch(IOException e) {
 			throw new RecordException(e);
 		}
+	}
+	
+	public int getRecordScore() {
+		return record_score;
 	}
 }

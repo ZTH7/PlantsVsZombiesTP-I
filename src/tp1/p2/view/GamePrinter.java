@@ -6,7 +6,6 @@ import tp1.p2.control.exceptions.GameException;
 import tp1.p2.control.exceptions.RecordException;
 import tp1.p2.logic.GameStatus;
 import tp1.p2.logic.GameWorld;
-import tp1.p2.logic.Record;
 import tp1.utils.StringUtils;
 
 public class GamePrinter {
@@ -115,7 +114,7 @@ public class GamePrinter {
 			buffer.append(NEW_LINE);
 			if(game.getScore() > game.getRecordScore()) {
 				try {
-					Record.WriteRecord(game.getLevelname(), game.getScore());
+					game.saveRecord();
 					buffer.append(String.format(Messages.NEW_RECORD + game.getScore()));
 				} catch(RecordException e) {
 					throw new GameException(e);
