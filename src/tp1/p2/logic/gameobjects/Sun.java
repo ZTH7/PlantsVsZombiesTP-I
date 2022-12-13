@@ -14,12 +14,12 @@ public class Sun extends GameObject {
     }
     
 	@Override
-	public boolean receiveZombieAttack(int damage) {
+	public boolean receiveZombieAttack(int damage, Option option) {
 		return false;
 	}
 
 	@Override
-	public boolean receivePlantAttack(int damage) {
+	public boolean receivePlantAttack(int damage, Option option) {
 		return false;
 	}
 

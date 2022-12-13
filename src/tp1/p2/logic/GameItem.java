@@ -5,7 +5,7 @@ package tp1.p2.logic;
  *
  */
 public interface GameItem {
-
+	public enum Option {NoExplosion, PlantExplosion, ZombieExplosion};
 	/**
 	 * Receive a zombie attack.
 	 * 
@@ -14,7 +14,7 @@ public interface GameItem {
 	 * @return <code>true</code> if a plant has been attacked, <code>false</code>
 	 *         otherwise.
 	 */
-	boolean receiveZombieAttack(int damage);
+	boolean receiveZombieAttack(int damage, Option option);
 
 	/**
 	 * Receive a plant attack.
@@ -24,7 +24,7 @@ public interface GameItem {
 	 * @return <code>true</code> if a plant has been attacked, <code>false</code>
 	 *         otherwise.
 	 */
-	boolean receivePlantAttack(int damage);
+	boolean receivePlantAttack(int damage, Option option);
 
 	
 	/**

@@ -2,6 +2,8 @@ package tp1.p2.view;
 
 import static tp1.utils.StringUtils.repeat;
 
+import tp1.p2.control.exceptions.GameException;
+import tp1.p2.control.exceptions.RecordException;
 import tp1.p2.logic.GameStatus;
 import tp1.p2.logic.GameWorld;
 import tp1.utils.StringUtils;
@@ -53,6 +55,7 @@ public class GamePrinter {
 		buffer.append(Messages.REMAINING_ZOMBIES + " " + game.getRemainingZombies() + NEW_LINE);
 		buffer.append(Messages.GENERATED_SUNS + " " + game.getGeneratedSuns() + NEW_LINE);
 		buffer.append(Messages.CAUGHT_SUNS + " " + game.getCaughtSuns() + NEW_LINE);
+		buffer.append(Messages.SCORE + " " + game.getScore() + NEW_LINE);
 		/* @formatter:on */
 
 		return buffer.toString();
@@ -99,14 +102,26 @@ public class GamePrinter {
 	 * @return a string representing a message to be printed once the game has
 	 *         finished.
 	 */
-	public String endMessage() {
+	public String endMessage() throws GameException{
 		// TODO add your code here
 		StringBuilder buffer = new StringBuilder(Messages.GAME_OVER);
 
 		buffer.append(NEW_LINE);
 		if(game.isPlayerQuits()) buffer.append(Messages.PLAYER_QUITS);
 		else if(game.isZombieWins()) buffer.append(Messages.ZOMBIES_WIN);
-		else buffer.append(Messages.PLAYER_WINS);
+		else {
+			buffer.append(Messages.PLAYER_WINS);
+			buffer.append(NEW_LINE);
+			if(game.getScore() > game.getRecordScore()) {
+				try {
+					game.saveRecord();
+					buffer.append(String.format(Messages.NEW_RECORD + game.getScore()));
+				} catch(RecordException e) {
+					throw new GameException(e);
+				}
+			}
+			else buffer.append(String.format(Messages.RECORD + game.getRecordScore()));
+		}
 
 		return buffer.toString();
 	}

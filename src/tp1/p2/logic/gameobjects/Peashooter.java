@@ -42,12 +42,10 @@ public class Peashooter extends Plant {
 
 	@Override
 	public void update() {
-		if(isAlive()) {
-			for(int i = this.col; i < GameWorld.NUM_COLS; i++) {
-				GameItem item = game.getGameItemInPosition(i, row);
-				if(item != null && item.receivePlantAttack(damage)) break;
-			}
-    	}
+		for(int i = this.col; i < GameWorld.NUM_COLS; i++) {
+			GameItem item = game.getGameItemInPosition(i, row);
+			if(item != null && item.receivePlantAttack(damage, Option.NoExplosion)) break;
+		}
 	}
 
 	@Override

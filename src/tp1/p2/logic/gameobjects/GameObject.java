@@ -20,6 +20,8 @@ public abstract class GameObject implements GameItem {
 	protected int life;
 
 	protected int ciclo;
+	
+	protected Option dieCause = Option.NoExplosion;
 
 	GameObject() {
 	}

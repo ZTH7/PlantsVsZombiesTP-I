@@ -1,7 +1,7 @@
 package tp1.p2.control.commands;
 
 import tp1.p2.control.Command;
-import tp1.p2.control.ExecutionResult;
+import tp1.p2.control.exceptions.GameException;
 import tp1.p2.logic.GameWorld;
 import tp1.p2.logic.gameobjects.Zombie;
 import tp1.p2.logic.gameobjects.ZombieFactory;
@@ -30,7 +30,7 @@ public class ListZombiesCommand extends Command {
 	}
 
 	@Override
-	public ExecutionResult execute(GameWorld game) {
+	public boolean execute(GameWorld game) throws GameException {
 		System.out.println(Messages.AVAILABLE_ZOMBIES);
 		// TODO add your code here
 		for(Zombie zombie : ZombieFactory.getAvailableZombies()) {
@@ -38,7 +38,7 @@ public class ListZombiesCommand extends Command {
 		}
 		System.out.println();
 
-		return new ExecutionResult(false);
+		return false;
 	}
 
 }

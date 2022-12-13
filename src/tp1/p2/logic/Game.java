@@ -1,18 +1,17 @@
 package tp1.p2.logic;
 
-import static tp1.p2.view.Messages.error;
-
 import java.util.ArrayDeque;
 import java.util.Deque;
-import java.util.List;
 import java.util.Random;
 
 import tp1.p2.control.Command;
-import tp1.p2.control.ExecutionResult;
+import tp1.p2.control.exceptions.GameException;
+import tp1.p2.control.exceptions.InvalidPositionException;
+import tp1.p2.control.exceptions.NotEnoughCoinsException;
 import tp1.p2.control.Level;
+import tp1.p2.logic.GameItem.Option;
 import tp1.p2.logic.actions.GameAction;
 import tp1.p2.logic.gameobjects.GameObject;
-import tp1.p2.view.Messages;
 
 public class Game implements GameStatus, GameWorld {
 
@@ -21,6 +20,8 @@ public class Game implements GameStatus, GameWorld {
 	private Level level;
 	
 	private int cycle;
+	
+	private int score;
 
 	private GameObjectContainer container;
 
@@ -34,8 +35,9 @@ public class Game implements GameStatus, GameWorld {
 	private SunsManager sunsManager;
 	public static final int INITIAL_SUNCOINS = 50;
 	private int SunCoins = INITIAL_SUNCOINS;
+	private Record record;
 
-	public Game(long seed, Level level) {
+	public Game(long seed, Level level) throws GameException {
 		this.seed = seed;
 		this.level = level;
 		this.container = new GameObjectContainer();
@@ -46,7 +48,7 @@ public class Game implements GameStatus, GameWorld {
 	 * Resets the game.
 	 */
 	@Override
-	public void reset() {
+	public void reset() throws GameException {
 		reset(this.level, this.seed);
 	}
 
@@ -57,9 +59,10 @@ public class Game implements GameStatus, GameWorld {
 	 * @param seed Random seed Used to initialize the game.
 	 */
 	@Override
-	public void reset(Level level, long seed) {
+	public void reset(Level level, long seed) throws GameException {
 		// TODO add your code here
 		this.cycle = 0;
+		this.score = 0;
 		this.actions = new ArrayDeque<>();
 		this.SunCoins = INITIAL_SUNCOINS;
 		
@@ -67,12 +70,10 @@ public class Game implements GameStatus, GameWorld {
         if(seed != 0) this.seed = seed;
         
         Random rand = new Random(this.seed);
+        this.record = new Record(level);
         this.container = new GameObjectContainer();
         this.zombiesManager = new ZombiesManager(this, this.level, rand);
         this.sunsManager = new SunsManager(this, rand);
-
-		System.out.println(String.format(Messages.CONFIGURED_LEVEL, this.level.name()));
-		System.out.println(String.format(Messages.CONFIGURED_SEED, this.seed));
 	}
 
 
@@ -81,7 +82,7 @@ public class Game implements GameStatus, GameWorld {
 	 * 
 	 */
 	@Override
-	public void update() {
+	public void update() throws GameException{
 
 		// 1. Execute pending actions
 		executePendingActions();
@@ -107,6 +108,10 @@ public class Game implements GameStatus, GameWorld {
 
 		// 6. Notify commands that a new cycle started
 		Command.newCycle();
+		
+
+		// 7. Update record
+		// TODO your code here
 
 	}
 
@@ -133,14 +138,11 @@ public class Game implements GameStatus, GameWorld {
 	}
 
 	@Override
-	public boolean tryToCatchObject(int col, int row) {
-		boolean res = false;
+	public void tryToCatchObject(int col, int row) {
 		while(container.tryToCatchObject(col, row)) {
 			sunsManager.addCatchedSuns();
 			addSunCoin(10);
-			res = true;
 		}
-		return res;
 	}
 
 	@Override
@@ -159,7 +161,8 @@ public class Game implements GameStatus, GameWorld {
 	}
 
 	@Override
-	public void reduceZombie() {
+	public void reduceZombie(Option dieOption) {
+		score += dieOption == Option.NoExplosion ? 10 : 20;
 		zombiesManager.reduceZombie();
 	}
 
@@ -172,10 +175,8 @@ public class Game implements GameStatus, GameWorld {
 	}
 
 	@Override
-	public boolean execute(Command command) {
-		ExecutionResult res = command.execute(this);
-		if(!res.success()) System.out.println(res.errorMessage());
-		return res.draw();
+	public boolean execute(Command command) throws GameException {
+		return command.execute(this);
 	}
 
 	@Override
@@ -191,6 +192,26 @@ public class Game implements GameStatus, GameWorld {
 	@Override
 	public int getSuncoins() {
 		return SunCoins;
+	}
+
+	@Override
+	public int getScore() {
+		return score;
+	}
+
+	@Override
+	public long getSeed() {
+		return seed;
+	}
+
+	@Override
+	public int getRecordScore() {
+		return record.getRecordScore();
+	}
+
+	@Override
+	public String getLevelname() {
+		return this.level.name();
 	}
 
 	@Override
@@ -226,6 +247,26 @@ public class Game implements GameStatus, GameWorld {
 	@Override
 	public boolean isZombieWins() {
 		return zombieWins;
+	}
+
+	@Override
+	public void saveRecord() throws GameException {
+		record.save(score);
+	}
+
+	@Override
+	public void tryToBuy(int cost) throws GameException {
+		if(!addSunCoin(-cost)) throw new NotEnoughCoinsException();
+	}
+
+	@Override
+	public void checkValidPlantPosition(int col, int row) throws GameException {
+		if(getGameItemInPosition(col, row) != null) throw new InvalidPositionException(col, row);
+	}
+
+	@Override
+	public void checkValidZombiePosition(int col, int row) throws GameException {
+		if(getGameItemInPosition(col, row) != null) throw new InvalidPositionException(col, row);
 	}
 	
 }

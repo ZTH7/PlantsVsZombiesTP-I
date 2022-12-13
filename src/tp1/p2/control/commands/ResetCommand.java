@@ -1,10 +1,9 @@
 package tp1.p2.control.commands;
 
-import static tp1.p2.view.Messages.error;
-
 import tp1.p2.control.Command;
-import tp1.p2.control.ExecutionResult;
 import tp1.p2.control.Level;
+import tp1.p2.control.exceptions.CommandParseException;
+import tp1.p2.control.exceptions.GameException;
 import tp1.p2.logic.GameWorld;
 import tp1.p2.view.Messages;
 
@@ -43,21 +42,26 @@ public class ResetCommand extends Command {
 	}
 
 	@Override
-	public ExecutionResult execute(GameWorld game){
+	public boolean execute(GameWorld game) throws GameException {
 		// TODO add your code here
+		
 		if(level != null) game.reset(level, seed);
 		else game.reset();
-		return new ExecutionResult(true);
+
+		System.out.println(String.format(Messages.CONFIGURED_LEVEL, game.getLevelname()));
+		System.out.println(String.format(Messages.CONFIGURED_SEED, game.getSeed()));
+		
+		return true;
 	}
 
 	@Override
-	public Command create(String[] parameters) {
+	public Command create(String[] parameters) throws GameException{
 		// TODO add your code here
 		if(parameters.length != 0) {
 			Level l = Level.valueOfIgnoreCase(parameters[0]);
 			if (l == null) {
-				System.out.println(error(Messages.INVALID_COMMAND));
-				return null;
+				throw new CommandParseException(Messages.INVALID_COMMAND);
+				//return null;
 			}
 			
 			try {
@@ -66,8 +70,9 @@ public class ResetCommand extends Command {
 					return new ResetCommand(l,s);
 				}
 			} catch (NumberFormatException nfe) {
-				System.out.println(String.format(Messages.SEED_NOT_A_NUMBER_ERROR, parameters[1]));
-				return null;
+				throw new CommandParseException(nfe.getMessage());
+				//System.out.println(String.format(Messages.SEED_NOT_A_NUMBER_ERROR, parameters[1]));
+				//return null;
 			}
 		}
 		

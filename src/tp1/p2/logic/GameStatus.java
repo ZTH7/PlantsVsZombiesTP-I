@@ -1,5 +1,7 @@
 package tp1.p2.logic;
 
+import tp1.p2.control.exceptions.GameException;
+
 public interface GameStatus {
 
 	/**
@@ -53,4 +55,11 @@ public interface GameStatus {
 	boolean isPlayerQuits();
 	
 	boolean isZombieWins();
+	
+	int getScore();
+	
+	public int getRecordScore();
+	
+	void saveRecord() throws GameException;
+	
 }

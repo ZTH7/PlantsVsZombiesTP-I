@@ -27,8 +27,8 @@ public class ExplosionAction implements GameAction {
 			for(int j = row - 1; j <= row + 1; j++) {
 				GameItem item = game.getGameItemInPosition(i, j);
 				if(item != null) {
-					if(plant) item.receivePlantAttack(damage);
-					else item.receiveZombieAttack(damage);
+					if(plant) item.receivePlantAttack(damage, GameItem.Option.PlantExplosion);
+					else item.receiveZombieAttack(damage, GameItem.Option.ZombieExplosion);
 				}
 			}
 		}

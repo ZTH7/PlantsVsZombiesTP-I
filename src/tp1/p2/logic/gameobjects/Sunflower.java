@@ -41,12 +41,10 @@ public class Sunflower extends Plant {
 
 	@Override
 	public void update() {
-		if(isAlive()) {
-			if(this.ciclo == 0) {
-	    		game.addSun();
-	    		this.ciclo = Sunflower.frecuencia - 1;
-	    	} else this.ciclo--;
-		}
+		if(this.ciclo == 0) {
+    		game.addSun();
+    		this.ciclo = Sunflower.frecuencia - 1;
+    	} else this.ciclo--;
 	}
 
 	@Override
